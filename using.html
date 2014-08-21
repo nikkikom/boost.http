@@ -1,0 +1,96 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Chapter&#160;2.&#160;Using</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="prev" href="introduction/a_not_that_small_teaser.html" title="A (not that) small teaser">
+<link rel="next" href="using/temporary_requirements.html" title="Temporary requirements">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="introduction/a_not_that_small_teaser.html"><img src="images/prev.png" alt="Prev"></a><a accesskey="u" href="index.html"><img src="images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a><a accesskey="n" href="using/temporary_requirements.html"><img src="images/next.png" alt="Next"></a>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="using"></a>Chapter&#160;2.&#160;Using</h2></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="using.html#using.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="using/temporary_requirements.html">Temporary requirements</a></span></dt>
+<dt><span class="section"><a href="using/building.html">Building</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="using.requirements"></a><a class="link" href="using.html#using.requirements" title="Requirements">Requirements</a>
+</h2></div></div></div>
+<p>
+        This library is written in C++11 and requires a C++11 supporting compiler.
+      </p>
+<p>
+        This library tries to reuse standard library components when possible, but
+        this is not always the case. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">error_code</span></code>,
+        for instance, cannot be transparently replaced by <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span></code>
+        within ASIO-using code.
+      </p>
+<p>
+        The full list of dependencies is:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+            Boost
+            <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                  algorithm, container, string_ref, ASIO, date_time and system<sup>[<a name="using.requirements.f0" href="#ftn.using.requirements.f0" class="footnote">3</a>]</sup>.
+                </li>
+<li class="listitem">
+                  unit_test_framework<sup>[<a name="using.requirements.f1" href="#ftn.using.requirements.f1" class="footnote">4</a>]</sup>.
+                </li>
+<li class="listitem">
+                  context and coroutine<sup>[<a name="using.requirements.f2" href="#ftn.using.requirements.f2" class="footnote">5</a>]</sup>.
+                </li>
+<li class="listitem">
+                  filesystem<sup>[<a name="using.requirements.f3" href="#ftn.using.requirements.f3" class="footnote">6</a>]</sup>.
+                </li>
+<li class="listitem">
+                  Quickbook and boostbook<sup>[<a name="using.requirements.f4" href="#ftn.using.requirements.f4" class="footnote">7</a>]</sup>.
+                </li>
+</ul></div>
+          </li></ul></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.using.requirements.f0" href="#using.requirements.f0" class="para">3</a>] </sup>
+                    Used in the core library.
+                  </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.using.requirements.f1" href="#using.requirements.f1" class="para">4</a>] </sup>
+                    For tests.
+                  </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.using.requirements.f2" href="#using.requirements.f2" class="para">5</a>] </sup>
+                    For the examples.
+                  </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.using.requirements.f3" href="#using.requirements.f3" class="para">6</a>] </sup>
+                    For the <code class="computeroutput"><span class="identifier">file_server</span></code>.
+                  </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.using.requirements.f4" href="#using.requirements.f4" class="para">7</a>] </sup>
+                    For the documentation.
+                  </p></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="introduction/a_not_that_small_teaser.html"><img src="images/prev.png" alt="Prev"></a><a accesskey="u" href="index.html"><img src="images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a><a accesskey="n" href="using/temporary_requirements.html"><img src="images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Chapter&#160;3.&#160;Tutorial</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="prev" href="using/building.html" title="Building">
+<link rel="next" href="a_chapter.html" title="Chapter&#160;4.&#160;A chapter">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="using/building.html"><img src="images/prev.png" alt="Prev"></a><a accesskey="u" href="index.html"><img src="images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a><a accesskey="n" href="a_chapter.html"><img src="images/next.png" alt="Next"></a>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="tutorial"></a>Chapter&#160;3.&#160;Tutorial</h2></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial">Tutorial</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.overview">Overview</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.imported_declarations">Imported declarations</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.connection_management">Connection
+        management</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.receiving_request_messages">Receiving
+        request messages</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.generating_a_reply">Generating a
+        reply</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="tutorial.tutorial"></a><a class="link" href="tutorial.html#tutorial.tutorial" title="Tutorial">Tutorial</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.overview">Overview</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.imported_declarations">Imported declarations</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.connection_management">Connection
+        management</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.receiving_request_messages">Receiving
+        request messages</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#tutorial.tutorial.generating_a_reply">Generating a
+        reply</a></span></dt>
+</dl></div>
+<p>
+        This tutorial begins by the code snippet below to illustrate the library
+        usage and follows explaining it.
+      </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          This tutorial assumes you're already familiar with HTTP<sup>[<a name="tutorial.tutorial.f0" href="#ftn.tutorial.tutorial.f0" class="footnote">8</a>]</sup>!
+        </p></td></tr>
+</table></div>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          This tutorial assumes you're already familiar with ASIO!
+        </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">algorithm</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">utility</span><span class="special">/</span><span class="identifier">string_ref</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">/</span><span class="identifier">io_service</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">/</span><span class="identifier">spawn</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">std</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">asio</span><span class="special">::</span><span class="identifier">io_service</span> <span class="identifier">ios</span><span class="special">;</span>
+
+    <span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">acceptor</span> <span class="identifier">acceptor</span><span class="special">(</span><span class="identifier">ios</span><span class="special">,</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span>
+                                     <span class="special">::</span><span class="identifier">endpoint</span><span class="special">(</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">v6</span><span class="special">(),</span> <span class="number">8080</span><span class="special">));</span>
+
+    <span class="keyword">auto</span> <span class="identifier">work</span> <span class="special">=</span> <span class="special">[&amp;</span><span class="identifier">acceptor</span><span class="special">](</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">yield_context</span> <span class="identifier">yield</span><span class="special">)</span> <span class="special">{</span>
+        <span class="keyword">while</span> <span class="special">(</span><span class="keyword">true</span><span class="special">)</span> <span class="special">{</span>
+            <span class="keyword">try</span> <span class="special">{</span>
+                <span class="keyword">char</span> <span class="identifier">buffer</span><span class="special">[</span><span class="number">4</span><span class="special">];</span>
+                <span class="identifier">http</span><span class="special">::</span><span class="identifier">socket</span> <span class="identifier">socket</span><span class="special">(</span><span class="identifier">acceptor</span><span class="special">.</span><span class="identifier">get_io_service</span><span class="special">(),</span>
+                                    <span class="identifier">asio</span><span class="special">::</span><span class="identifier">buffer</span><span class="special">(</span><span class="identifier">buffer</span><span class="special">));</span>
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">method</span><span class="special">;</span>
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">path</span><span class="special">;</span>
+                <span class="identifier">http</span><span class="special">::</span><span class="identifier">message</span> <span class="identifier">message</span><span class="special">;</span>
+
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to accept a new connection"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                <span class="identifier">acceptor</span><span class="special">.</span><span class="identifier">async_accept</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">next_layer</span><span class="special">(),</span> <span class="identifier">yield</span><span class="special">);</span>
+
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to receive a new message"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_read_request</span><span class="special">(</span><span class="identifier">method</span><span class="special">,</span> <span class="identifier">path</span><span class="special">,</span> <span class="identifier">message</span><span class="special">,</span> <span class="identifier">yield</span><span class="special">);</span>
+                <span class="comment">//message.body().clear(); // freeing not used resources</span>
+
+                <span class="keyword">if</span> <span class="special">(</span><span class="identifier">http</span><span class="special">::</span><span class="identifier">request_continue_required</span><span class="special">(</span><span class="identifier">message</span><span class="special">))</span> <span class="special">{</span>
+                    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Continue required. About to send \"100-continue\""</span>
+                         <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+                    <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_write_response_continue</span><span class="special">(</span><span class="identifier">yield</span><span class="special">);</span>
+                <span class="special">}</span>
+
+                <span class="keyword">while</span> <span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">()</span> <span class="special">!=</span> <span class="identifier">http</span><span class="special">::</span><span class="identifier">read_state</span><span class="special">::</span><span class="identifier">empty</span><span class="special">)</span> <span class="special">{</span>
+                    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Message not fully received"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                    <span class="keyword">switch</span> <span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">())</span> <span class="special">{</span>
+                    <span class="keyword">case</span> <span class="identifier">http</span><span class="special">::</span><span class="identifier">read_state</span><span class="special">::</span><span class="identifier">message_ready</span><span class="special">:</span>
+                        <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to receive some body"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                        <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">yield</span><span class="special">);</span>
+                        <span class="keyword">break</span><span class="special">;</span>
+                    <span class="keyword">case</span> <span class="identifier">http</span><span class="special">::</span><span class="identifier">read_state</span><span class="special">::</span><span class="identifier">body_ready</span><span class="special">:</span>
+                        <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to receive trailers"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                        <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_read_trailers</span><span class="special">(</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">yield</span><span class="special">);</span>
+                        <span class="keyword">break</span><span class="special">;</span>
+                    <span class="keyword">default</span><span class="special">:;</span>
+                    <span class="special">}</span>
+                <span class="special">}</span>
+
+                <span class="comment">//cout &lt;&lt; "BODY:==";</span>
+                <span class="comment">//for (const auto &amp;e: message.body()) {</span>
+                <span class="comment">//    cout &lt;&lt; char(e);</span>
+                <span class="comment">//}</span>
+                <span class="comment">//cout &lt;&lt; "==" &lt;&lt; endl;</span>
+
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Message received. State = "</span>
+                     <span class="special">&lt;&lt;</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Method: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">method</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Path: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">path</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Host header: "</span>
+                     <span class="special">&lt;&lt;</span> <span class="identifier">message</span><span class="special">.</span><span class="identifier">headers</span><span class="special">().</span><span class="identifier">find</span><span class="special">(</span><span class="string">"host"</span><span class="special">)-&gt;</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Write state = "</span> <span class="special">&lt;&lt;</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">())</span>
+                <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+                <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to send a reply"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+
+                <span class="identifier">http</span><span class="special">::</span><span class="identifier">message</span> <span class="identifier">reply</span><span class="special">;</span>
+                <span class="keyword">const</span> <span class="keyword">char</span> <span class="identifier">body</span><span class="special">[]</span> <span class="special">=</span> <span class="string">"Foobar"</span><span class="special">;</span>
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span><span class="special">(</span><span class="identifier">body</span><span class="special">,</span> <span class="identifier">body</span> <span class="special">+</span> <span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">body</span><span class="special">)</span> <span class="special">-</span> <span class="number">1</span><span class="special">,</span>
+                          <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">reply</span><span class="special">.</span><span class="identifier">body</span><span class="special">()));</span>
+
+                <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_write_response</span><span class="special">(</span><span class="number">200</span><span class="special">,</span> <span class="identifier">string_ref</span><span class="special">(</span><span class="string">"OK"</span><span class="special">),</span> <span class="identifier">reply</span><span class="special">,</span>
+                                            <span class="identifier">yield</span><span class="special">);</span>
+            <span class="special">}</span> <span class="keyword">catch</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">exception</span> <span class="special">&amp;</span><span class="identifier">e</span><span class="special">)</span> <span class="special">{</span>
+                <span class="identifier">cerr</span> <span class="special">&lt;&lt;</span> <span class="string">"Aborting on exception: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">e</span><span class="special">.</span><span class="identifier">what</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">exit</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+            <span class="special">}</span>
+        <span class="special">};</span>
+    <span class="special">};</span>
+
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to spawn"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+    <span class="identifier">spawn</span><span class="special">(</span><span class="identifier">ios</span><span class="special">,</span> <span class="identifier">work</span><span class="special">);</span>
+
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to run"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+    <span class="identifier">ios</span><span class="special">.</span><span class="identifier">run</span><span class="special">();</span>
+
+    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tutorial.tutorial.overview"></a><a class="link" href="tutorial.html#tutorial.tutorial.overview" title="Overview">Overview</a>
+</h3></div></div></div>
+<p>
+          This application listens for connections effectively implementing an HTTP
+          server. This is a standalone server and it doesn't depend on external software
+          (such as Apache) to handle incoming requests. The default port for naked
+          (non-HTTP<span class="bold"><strong>S</strong></span>) HTTP connections is <code class="computeroutput"><span class="number">80</span></code>, but we're using <code class="computeroutput"><span class="number">8080</span></code>
+          here.
+        </p>
+<p>
+          For each connection accepted, the application will handle the first request
+          and ignore the rest of the connection, spending resources on the next one.
+          The response message will be a "200 OK" with a "<span class="emphasis"><em>Foobar</em></span>"
+          data payload. All states are respected and we correctly handle the "100-continue"
+          requests.
+        </p>
+<p>
+          The application will also print to the standard output to give us a clue
+          of what is going on.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tutorial.tutorial.imported_declarations"></a><a class="link" href="tutorial.html#tutorial.tutorial.imported_declarations" title="Imported declarations">Imported declarations</a>
+</h3></div></div></div>
+<p>
+          First things first. Let's look at the imported headers:
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">algorithm</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">utility</span><span class="special">/</span><span class="identifier">string_ref</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+          We're going to make use of the standard output for easy debugging. We're
+          also going to make use of the <code class="computeroutput"><span class="identifier">copy</span></code>
+          algorithm to fill the body of the messages and the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">string_ref</span></code>
+          class to adapt string literals into full objects implementing the <code class="computeroutput"><span class="identifier">String</span></code> container/concept. These are the
+          <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span></code>, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">algorithm</span><span class="special">&gt;</span></code>
+          and <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">utility</span><span class="special">/</span><span class="identifier">string_ref</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> headers.
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">/</span><span class="identifier">io_service</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">/</span><span class="identifier">spawn</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+          Just as ASIO require, we're going to use the popular <code class="computeroutput"><span class="identifier">io_service</span></code>.
+          And to make the code more readable, we're also including the <code class="computeroutput"><span class="identifier">spawn</span></code> completion token.
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+          These is the interesting part of the block of <code class="computeroutput"><span class="preprocessor">#include</span></code>
+          directives. The first header includes the probably most useful HTTP producer
+          that this library will ever provide. The second one has some useful HTTP
+          algorithms. From these algorithms, we're going to make use of <code class="computeroutput"><span class="identifier">request_continue_required</span></code>. If we wanted
+          to reduce the amount of imported symbols, we could just <code class="computeroutput"><span class="preprocessor">#include</span></code>
+          <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">query</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> instead <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">&gt;</span></code>.
+        </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">std</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
+</pre>
+<p>
+          And we don't want to endlessly and brainlessly type like a monkey, then
+          we import some declarations to the global namespace.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tutorial.tutorial.connection_management"></a><a class="link" href="tutorial.html#tutorial.tutorial.connection_management" title="Connection management">Connection
+        management</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">acceptor</span> <span class="identifier">acceptor</span><span class="special">(</span><span class="identifier">ios</span><span class="special">,</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span>
+                                 <span class="special">::</span><span class="identifier">endpoint</span><span class="special">(</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">v6</span><span class="special">(),</span> <span class="number">8080</span><span class="special">));</span>
+
+<span class="keyword">auto</span> <span class="identifier">work</span> <span class="special">=</span> <span class="special">[&amp;</span><span class="identifier">acceptor</span><span class="special">](</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">yield_context</span> <span class="identifier">yield</span><span class="special">)</span> <span class="special">{</span>
+    <span class="keyword">while</span> <span class="special">(</span><span class="keyword">true</span><span class="special">)</span> <span class="special">{</span>
+        <span class="keyword">try</span> <span class="special">{</span>
+            <span class="keyword">char</span> <span class="identifier">buffer</span><span class="special">[</span><span class="number">4</span><span class="special">];</span>
+            <span class="identifier">http</span><span class="special">::</span><span class="identifier">socket</span> <span class="identifier">socket</span><span class="special">(</span><span class="identifier">acceptor</span><span class="special">.</span><span class="identifier">get_io_service</span><span class="special">(),</span>
+                                <span class="identifier">asio</span><span class="special">::</span><span class="identifier">buffer</span><span class="special">(</span><span class="identifier">buffer</span><span class="special">));</span>
+</pre>
+<p>
+          HTTP doesn't require to handle protocol negotiation separately from the
+          remaining protocol or any super special handshaking flow. Therefore, we
+          use a "naked" acceptor to fuel an usable HTTP socket. This approach
+          also give us the flexibility to use many other socket creation mechanisms
+          (e.g. HTTP<span class="bold"><strong>S</strong></span>). <code class="computeroutput"><span class="identifier">socket</span></code>
+          is just a typedef defined as follows:
+        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_socket</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">socket</span><span class="special">&gt;</span> <span class="identifier">socket</span><span class="special">;</span>
+</pre>
+<p>
+          The template type argument is available through <code class="computeroutput"><span class="identifier">basic_socket</span><span class="special">&lt;</span><span class="identifier">Socket</span><span class="special">&gt;::</span><span class="identifier">next_layer_type</span></code>
+          and the underlying socket is available through <code class="computeroutput"><span class="identifier">socket</span><span class="special">.</span><span class="identifier">next_layer</span><span class="special">()</span></code>. This design mirrors the ASIO's <code class="computeroutput"><span class="identifier">ssl</span><span class="special">::</span><span class="identifier">stream</span></code> class. It's not just useful for
+          HTTP<span class="bold"><strong>S</strong></span>, but any abstraction that can go
+          below the high-level HTTP socket (like <a href="http://sourceforge.net/p/axiomq/code/ci/master/tree/include/axiomq/basic_queue_socket.hpp" target="_top">basic_queue_socket</a>
+          from AxioMQ). Therefore, we hope the acceptance will look something like
+          the following line (and indeed it does):
+        </p>
+<pre class="programlisting"><span class="identifier">acceptor</span><span class="special">.</span><span class="identifier">async_accept</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">next_layer</span><span class="special">(),</span> <span class="identifier">yield</span><span class="special">);</span>
+</pre>
+<p>
+          You'll soon see that the data from the HTTP messages is feeded to an appropriate
+          <code class="computeroutput"><span class="identifier">message</span></code> object, but maybe
+          you're surprised to see the explicit construction of a <code class="computeroutput"><span class="identifier">buffer</span></code>
+          object. Maybe you're wondering <span class="emphasis"><em>why won't we use the soon-to-be-seen
+          <code class="computeroutput"><span class="identifier">message</span></code> object to behave
+          as the buffer</em></span>. A fully separated buffer is requried to correctly
+          handle HTTP pipelining (and multiplexing on supporting channels). So this
+          is what we do. We are using a very small buffer because any buffer size
+          larger than one should do (assuming you're using a good parser and we're),
+          but you should consider using larger buffers.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tutorial.tutorial.receiving_request_messages"></a><a class="link" href="tutorial.html#tutorial.tutorial.receiving_request_messages" title="Receiving request messages">Receiving
+        request messages</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">method</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">path</span><span class="special">;</span>
+<span class="identifier">http</span><span class="special">::</span><span class="identifier">message</span> <span class="identifier">message</span><span class="special">;</span>
+</pre>
+<p>
+          And then we declare the objects that will hold the message info from the
+          soon-to-be-received HTTP request message. <code class="computeroutput"><span class="identifier">http</span><span class="special">::</span><span class="identifier">message</span></code>
+          is a general container-like object that encompass data that is common to
+          HTTP requests and HTTP responses. An alternative design would also include
+          the variant start line data within this object, but these alternative designs
+          were not chosen because not very type safe and unnecessary overhead.
+        </p>
+<p>
+          Also, if you have special resource usage requirements and don't want to
+          reimplement the <code class="computeroutput"><span class="identifier">Message</span></code>
+          concept you'll be happy to know that <code class="computeroutput"><span class="identifier">http</span><span class="special">::</span><span class="identifier">message</span></code>
+          is just a typedef defined as follows:
+        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_message</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">http</span><span class="special">::</span><span class="identifier">headers</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint8_t</span><span class="special">&gt;&gt;</span> <span class="identifier">message</span><span class="special">;</span>
+</pre>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to accept a new connection"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="identifier">acceptor</span><span class="special">.</span><span class="identifier">async_accept</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">next_layer</span><span class="special">(),</span> <span class="identifier">yield</span><span class="special">);</span>
+
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to receive a new message"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_read_request</span><span class="special">(</span><span class="identifier">method</span><span class="special">,</span> <span class="identifier">path</span><span class="special">,</span> <span class="identifier">message</span><span class="special">,</span> <span class="identifier">yield</span><span class="special">);</span>
+<span class="comment">//message.body().clear(); // freeing not used resources</span>
+</pre>
+<p>
+          And then we just call <code class="computeroutput"><span class="identifier">async_read_request</span></code>
+          passing the objects to be filled and we're done.
+        </p>
+<p>
+          A request is considered ready and, in sequence, dispatched to the user,
+          when the start line and the complete header section (all headers) are received.
+          A request cannot be properly handled before this stage<sup>[<a name="tutorial.tutorial.receiving_request_messages.f0" href="#ftn.tutorial.tutorial.receiving_request_messages.f0" class="footnote">9</a>]</sup>. Pieces of the body, in contrast, are delivered/dispatched
+          as they're available.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Even if you only requested enough to handle the message, by the time
+            the operation completes (your callback is called), your <code class="computeroutput"><span class="identifier">message</span></code> object may contain more data
+            than asked for (e.g. a small part of the body or even the complete message).
+            You should check the <code class="computeroutput"><span class="identifier">read_state</span></code>
+            once the operation completes.
+          </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="keyword">if</span> <span class="special">(</span><span class="identifier">http</span><span class="special">::</span><span class="identifier">request_continue_required</span><span class="special">(</span><span class="identifier">message</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Continue required. About to send \"100-continue\""</span>
+         <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+    <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_write_response_continue</span><span class="special">(</span><span class="identifier">yield</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+          In this next step we handle the HTTP 100-continue requests. These special
+          requests were created to decrease network traffic usage by rejecting requests
+          that would be discarded anyway sooner. Here, we accept all requests, then
+          we tell the client to proceed to send the body payload.
+        </p>
+<pre class="programlisting"><span class="keyword">while</span> <span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">()</span> <span class="special">!=</span> <span class="identifier">http</span><span class="special">::</span><span class="identifier">read_state</span><span class="special">::</span><span class="identifier">empty</span><span class="special">)</span> <span class="special">{</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Message not fully received"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+    <span class="keyword">switch</span> <span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">())</span> <span class="special">{</span>
+    <span class="keyword">case</span> <span class="identifier">http</span><span class="special">::</span><span class="identifier">read_state</span><span class="special">::</span><span class="identifier">message_ready</span><span class="special">:</span>
+        <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to receive some body"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+        <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">yield</span><span class="special">);</span>
+        <span class="keyword">break</span><span class="special">;</span>
+    <span class="keyword">case</span> <span class="identifier">http</span><span class="special">::</span><span class="identifier">read_state</span><span class="special">::</span><span class="identifier">body_ready</span><span class="special">:</span>
+        <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to receive trailers"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+        <span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_read_trailers</span><span class="special">(</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">yield</span><span class="special">);</span>
+        <span class="keyword">break</span><span class="special">;</span>
+    <span class="keyword">default</span><span class="special">:;</span>
+    <span class="special">}</span>
+<span class="special">}</span>
+</pre>
+<p>
+          And then we check the <code class="computeroutput"><span class="identifier">read_state</span></code>
+          to possibly start more operations until we can ensure the whole message
+          was received.
+        </p>
+<pre class="programlisting"><span class="comment">//cout &lt;&lt; "BODY:==";</span>
+<span class="comment">//for (const auto &amp;e: message.body()) {</span>
+<span class="comment">//    cout &lt;&lt; char(e);</span>
+<span class="comment">//}</span>
+<span class="comment">//cout &lt;&lt; "==" &lt;&lt; endl;</span>
+
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Message received. State = "</span>
+     <span class="special">&lt;&lt;</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Method: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">method</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Path: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">path</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Host header: "</span>
+     <span class="special">&lt;&lt;</span> <span class="identifier">message</span><span class="special">.</span><span class="identifier">headers</span><span class="special">().</span><span class="identifier">find</span><span class="special">(</span><span class="string">"host"</span><span class="special">)-&gt;</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+          And some debugging info.
+        </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            In this chunk of code, we unconditionally print the first "host"
+            field found, but this header isn't always present and may cause the application
+            to segfault. You should add checks before using any header field.
+          </p></td></tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tutorial.tutorial.generating_a_reply"></a><a class="link" href="tutorial.html#tutorial.tutorial.generating_a_reply" title="Generating a reply">Generating a
+        reply</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Write state = "</span> <span class="special">&lt;&lt;</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">())</span>
+<span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to send a reply"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+
+<span class="identifier">http</span><span class="special">::</span><span class="identifier">message</span> <span class="identifier">reply</span><span class="special">;</span>
+<span class="keyword">const</span> <span class="keyword">char</span> <span class="identifier">body</span><span class="special">[]</span> <span class="special">=</span> <span class="string">"Foobar"</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span><span class="special">(</span><span class="identifier">body</span><span class="special">,</span> <span class="identifier">body</span> <span class="special">+</span> <span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">body</span><span class="special">)</span> <span class="special">-</span> <span class="number">1</span><span class="special">,</span>
+          <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">reply</span><span class="special">.</span><span class="identifier">body</span><span class="special">()));</span>
+
+<span class="identifier">socket</span><span class="special">.</span><span class="identifier">async_write_response</span><span class="special">(</span><span class="number">200</span><span class="special">,</span> <span class="identifier">string_ref</span><span class="special">(</span><span class="string">"OK"</span><span class="special">),</span> <span class="identifier">reply</span><span class="special">,</span>
+                            <span class="identifier">yield</span><span class="special">);</span>
+</pre>
+<p>
+          And in the last part of our little adventure, we begin by printing the
+          associated write_state (should be <code class="computeroutput"><span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span></code>
+          given we didn't started any response operations yet).
+        </p>
+<p>
+          And the reply itself is rather trivial to execute. Just fill a <code class="computeroutput"><span class="identifier">message</span></code> object and proceed to send it
+          with an associated response start line (status code and the associated
+          reason phrase).
+        </p>
+<div class="tip"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="images/tip.png"></td>
+<th align="left">Tip</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Alternatively, we don't need to specify the status code and its associated
+            reason phrases. The header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">write</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+            provide algorithms that can take care of the standard status codes.
+          </p></td></tr>
+</table></div>
+<p>
+          If you want to make use of the streaming interface (not shown in this example),
+          you should first make sure streaming is available for the current request-response
+          exchange. This test can be done using the <code class="computeroutput"><span class="identifier">write_response_native_stream</span><span class="special">()</span></code> member-function. If supported, you can
+          then proceed to making use of the streaming interface, available through
+          the methods <code class="computeroutput"><span class="identifier">async_write_response_metadata</span></code>,
+          <code class="computeroutput"><span class="identifier">async_write</span></code>, <code class="computeroutput"><span class="identifier">async_write_trailers</span></code> and <code class="computeroutput"><span class="identifier">async_write_end_of_message</span></code>.
+        </p>
+</div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.tutorial.tutorial.f0" href="#tutorial.tutorial.f0" class="para">8</a>] </sup>
+            I plan to extend this tutorial to include a small and fast introduction
+            later on
+          </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.tutorial.tutorial.receiving_request_messages.f0" href="#tutorial.tutorial.receiving_request_messages.f0" class="para">9</a>] </sup>
+            Once again, according to the HTTP RFC 7230, section 3.2.2: <span class="quote">&#8220;<span class="quote">A server
+            MUST NOT apply a request to the target resource until the entire request
+            header section is received, since later header fields might include conditionals,
+            authentication credentials, or deliberately misleading duplicate header
+            fields that would impact request processing.</span>&#8221;</span>
+          </p></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="using/building.html"><img src="images/prev.png" alt="Prev"></a><a accesskey="u" href="index.html"><img src="images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a><a accesskey="n" href="a_chapter.html"><img src="images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

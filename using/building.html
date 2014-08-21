@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Building</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="../using.html" title="Chapter&#160;2.&#160;Using">
+<link rel="prev" href="temporary_requirements.html" title="Temporary requirements">
+<link rel="next" href="../tutorial.html" title="Chapter&#160;3.&#160;Tutorial">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="temporary_requirements.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../using.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../tutorial.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="using.building"></a><a class="link" href="building.html" title="Building">Building</a>
+</h2></div></div></div>
+<p>
+        Make sure you have Boost and CMake installed and with the PATH to its executables
+        set, then create a folder for the build and, from there, run:
+      </p>
+<pre class="programlisting">$ cmake OPTIONS path_to_source_dir
+$ make MAKEOPTIONS
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">OPTIONS</span></code> can be null or have
+        a combination of the following values:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_INSTALL_PREFIX</span><span class="special">=</span><span class="error">$</span><span class="special">{</span><span class="identifier">INSTALLDIR</span><span class="special">}</span></code>
+            sets the directory where to install Tuf&#227;o.
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">Debug</span></code>.
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">Release</span></code>.
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">RelWithDebInfo</span></code>.
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">MinSizeRel</span></code>.
+          </li>
+</ul></div>
+<p>
+        Options available under Windows:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">G</span><span class="string">"MinGW Makefiles"</span></code> to generate
+            Makefiles for use with MinGW environment.
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="special">-</span><span class="identifier">G</span><span class="string">"Visual Studio 10"</span></code> to generate
+            project files for Visual Studio 10.
+          </li>
+</ul></div>
+<p>
+        <code class="computeroutput"><span class="identifier">MAKEOPTIONS</span></code> can be null or
+        have a combination of the following values:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            <code class="computeroutput"><span class="identifier">install</span></code> installs this
+            library.
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="identifier">DESTDIR</span><span class="special">=</span><span class="error">$</span><span class="special">{</span><span class="identifier">PKGDIR</span><span class="special">}</span></code> sets the directory where to install
+            this library. This options should be used if you intend to package this
+            library to set the package directory. To choose another installation
+            directory, see options in OPTIONS, above.
+          </li>
+</ul></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="temporary_requirements.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../using.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../tutorial.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

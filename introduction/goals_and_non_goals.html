@@ -1,0 +1,176 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Goals and Non-goals</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="../introduction.html" title="Introduction">
+<link rel="prev" href="../introduction.html" title="Introduction">
+<link rel="next" href="a_not_that_small_teaser.html" title="A (not that) small teaser">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../introduction.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../introduction.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="a_not_that_small_teaser.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="introduction.goals_and_non_goals"></a><a class="link" href="goals_and_non_goals.html" title="Goals and Non-goals">Goals and Non-goals</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="goals_and_non_goals.html#introduction.goals_and_non_goals.goals">Goals</a></span></dt>
+<dt><span class="section"><a href="goals_and_non_goals.html#introduction.goals_and_non_goals.non_goals">Non-goals</a></span></dt>
+<dt><span class="section"><a href="goals_and_non_goals.html#introduction.goals_and_non_goals.long_term_goals">Long-term
+        goals</a></span></dt>
+</dl></div>
+<p>
+        Text taken from the initial proposal<sup>[<a name="introduction.goals_and_non_goals.f0" href="#ftn.introduction.goals_and_non_goals.f0" class="footnote">1</a>]</sup> (as such only lists short-term goals):
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="introduction.goals_and_non_goals.goals"></a><a class="link" href="goals_and_non_goals.html#introduction.goals_and_non_goals.goals" title="Goals">Goals</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Develop a library for Boost submission and inclusion that abstracts
+              HTTP (<span class="bold"><strong>server side</strong></span>).
+            </li>
+<li class="listitem">
+              Asynchronous design that provides scalability.
+            </li>
+<li class="listitem">
+              Modular design that doesn't force all abstractions to be used together.
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+                    The main goal of the modular design is to fit well in embeded
+                    projects developed for resource-constrained devices while it
+                    still provide the possibility and some abstractions for better
+                    performance on devices not so constrained, such as pools to recycle
+                    objects and threaded versions that can (mostly) cooperate with
+                    the same interfaces.
+                  </li></ul></div>
+            </li>
+<li class="listitem">
+              Expose the HTTP power.
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Chunked entities. A stream interface that allow live-stream.
+                  </li>
+<li class="listitem">
+                    100-continue status. A feature to reduce network consumption.
+                  </li>
+<li class="listitem">
+                    Upgrade support. A feature required for WebSocket.
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              Allow multiple backends such as FastCGI and CoAP. It will be useful
+              also for HTTP 2.0. The only backend implementation developed will be
+              the built in server (see the <span class="emphasis"><em>deliverables</em></span> section
+              for more details).
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="introduction.goals_and_non_goals.non_goals"></a><a class="link" href="goals_and_non_goals.html#introduction.goals_and_non_goals.non_goals" title="Non-goals">Non-goals</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Provide lower abstractions to the HTTP parser.
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    This project will use ready HTTP parsers, then I'll be free to
+                    focus on other important features.
+                  </li>
+<li class="listitem">
+                    It can be replaced later, because the parser interface will not
+                    be exposed and it won't affect code that makes use of this library.
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              Provide even higher-abstractions to write template-driven MVC web applications
+              quickly.
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    But it'll be possible to build such abstractions on top of the
+                    developed library.
+                  </li>
+<li class="listitem">
+                    In fact, there are a lot of higher-level abstractions competing
+                    with each other, providing mostly incompatible abstractions.
+                    By not targeting this field, this library can actually become
+                    a new base for all these higher-level abstractions and allow
+                    greater interoperability among them.
+                  </li>
+</ul></div>
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="introduction.goals_and_non_goals.long_term_goals"></a><a class="link" href="goals_and_non_goals.html#introduction.goals_and_non_goals.long_term_goals" title="Long-term goals">Long-term
+        goals</a>
+</h3></div></div></div>
+<p>
+          This section wasn't part of the initial proposal and it is meant to list
+          long-term goals that weren't part of the short term goals:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Very simple HTTP client mode may be added later.
+            </li>
+<li class="listitem">
+              Implement alternative HTTP producers (e.g. FastCGI, CoAP, HTTP/2.0).
+            </li>
+<li class="listitem">
+              Replace the current parser (maybe using <a href="https://github.com/felipealmeida/http-parsers" target="_top">Felipe
+              Almeida's</a>).
+            </li>
+<li class="listitem">
+              Session support (RFC 6265).
+            </li>
+<li class="listitem">
+              HTTP/2.0.
+            </li>
+<li class="listitem">
+              WebSocket support.
+            </li>
+<li class="listitem">
+              Write a few examples demonstrating how to implement request routers
+              adopting different paradigms that can interoperate among them.
+            </li>
+<li class="listitem">
+              Forms and file uploader parser.
+            </li>
+<li class="listitem">
+              Compression support.
+            </li>
+<li class="listitem">
+              Write a simple proxy example to demonstrate that this is the right
+              API and can be used in many scenarios.
+            </li>
+</ul></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.introduction.goals_and_non_goals.f0" href="#introduction.goals_and_non_goals.f0" class="para">1</a>] </sup>
+          <a href="https://github.com/vinipsmaker/gsoc2014-boost" target="_top">https://github.com/vinipsmaker/gsoc2014-boost</a>
+        </p></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../introduction.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../introduction.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="a_not_that_small_teaser.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

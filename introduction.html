@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Introduction</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="prev" href="index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="next" href="introduction/goals_and_non_goals.html" title="Goals and Non-goals">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="index.html"><img src="images/prev.png" alt="Prev"></a><a accesskey="u" href="index.html"><img src="images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a><a accesskey="n" href="introduction/goals_and_non_goals.html"><img src="images/next.png" alt="Next"></a>
+</div>
+<div class="preface">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="introduction"></a>Introduction</h2></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="introduction.html#introduction.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="introduction/goals_and_non_goals.html">Goals and Non-goals</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="introduction/goals_and_non_goals.html#introduction.goals_and_non_goals.goals">Goals</a></span></dt>
+<dt><span class="section"><a href="introduction/goals_and_non_goals.html#introduction.goals_and_non_goals.non_goals">Non-goals</a></span></dt>
+<dt><span class="section"><a href="introduction/goals_and_non_goals.html#introduction.goals_and_non_goals.long_term_goals">Long-term
+        goals</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="introduction/a_not_that_small_teaser.html">A (not that) small
+      teaser</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="introduction/a_not_that_small_teaser.html#introduction.a_not_that_small_teaser.the_extensible_model">The
+        extensible model</a></span></dt>
+<dt><span class="section"><a href="introduction/a_not_that_small_teaser.html#introduction.a_not_that_small_teaser.asio_familiarity">ASIO
+        familiarity</a></span></dt>
+<dt><span class="section"><a href="introduction/a_not_that_small_teaser.html#introduction.a_not_that_small_teaser.the_mysterious_weird_news_api">The
+        mysterious/weird/news API</a></span></dt>
+<dt><span class="section"><a href="introduction/a_not_that_small_teaser.html#introduction.a_not_that_small_teaser.remaining_concerns">Remaining
+        concerns</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="introduction.introduction"></a><a class="link" href="introduction.html#introduction.introduction" title="Introduction">Introduction</a>
+</h2></div></div></div>
+<p>
+        This library was envisioned to solve the HTTP problem for the C++ programming
+        language. The proposal to solve this problem was to expose an HTTP abstraction
+        able to make use of the HTTP power (chunking/streaming, pipelining, upgrade
+        for supporting channels and multiplexing for supporting channels), at the
+        same time that a complete separation of communication channels and HTTP messages
+        is achieved.
+      </p>
+<p>
+        Under this model, we refer to any abstraction fulfilling the requirements
+        for an HTTP socket as HTTP producer. HTTP producers will feed and process
+        HTTP messages to interested parties. The HTTP consumers are user-level components
+        that will make use of the HTTP messages. The idea to separate communication
+        channels and messages was proposed to handle pipelining and multiplexing
+        elegantly, without the need to complicate the application (HTTP consumers)
+        logic.
+      </p>
+<p>
+        The ability to query certain properties from the underlying communication
+        channel is necessary to achieve reliability under this model. It's important
+        to define this property system this early because collaboration with the
+        HTTP producers is key in such system. If native stream is not supported,
+        for instance, the application would exhaust the system memory trying to stream
+        a live video.
+      </p>
+<p>
+        Besides providing a number of abstractions to isolate HTTP producers and
+        HTTP consumers, there is also a number of abstractions on top of that to
+        ease the job of creating applications making use of this distributed collaborative
+        protocol.
+      </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: August 21, 2014 at 18:44:53 GMT</small></p></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="index.html"><img src="images/prev.png" alt="Prev"></a><a accesskey="u" href="index.html"><img src="images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="images/home.png" alt="Home"></a><a accesskey="n" href="introduction/goals_and_non_goals.html"><img src="images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
