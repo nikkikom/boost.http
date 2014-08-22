@@ -1,0 +1,192 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>server_socket_adaptor</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="../reference.html" title="Chapter&#160;4.&#160;Reference">
+<link rel="prev" href="basic_socket.html" title="basic_socket">
+<link rel="next" href="header_to_ptime.html" title="header_to_ptime">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="basic_socket.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_to_ptime.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="reference.server_socket_adaptor"></a><a class="link" href="server_socket_adaptor.html" title="server_socket_adaptor">server_socket_adaptor</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="server_socket_adaptor.html#reference.server_socket_adaptor.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="server_socket_adaptor.html#reference.server_socket_adaptor.specializations">Specializations</a></span></dt>
+<dt><span class="section"><a href="server_socket_adaptor.html#reference.server_socket_adaptor.member_types">Member
+        types</a></span></dt>
+<dt><span class="section"><a href="server_socket_adaptor.html#reference.server_socket_adaptor.member_functions">Member
+        functions</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">server_socket_adaptor</span><span class="special">.</span><span class="identifier">qbk</span><span class="special">&gt;</span>
+</pre>
+<p>
+        This class adapts a class fulfilling the <a class="link" href="server_socket_concept.html" title="ServerSocket">ServerSocket
+        concept</a> to implement the <code class="literal"><a class="link" href="polymorphic_server_socket.html" title="polymorphic_server_socket">polymorphic_server_socket</a></code>
+        interface.
+      </p>
+<p>
+        This design was chosen taking a number of shortcomings in consideration.
+      </p>
+<p>
+        If the user can control object construction, he might benefit by less levels
+        of indirection by constructing both (the HTTP socket and its runtime-based
+        polymorphic adaptor) at once and at a single memory space.
+      </p>
+<p>
+        The scenario where the user don't control the object construction was also
+        taken in consideration. In these cases, it's possible to use the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">reference_wrapper</span></code>
+        type found in the <code class="literal">&lt;functional&gt;</code> header. There is
+        a <code class="computeroutput"><span class="identifier">server_socket_adaptor</span></code> specialization
+        that will do the job for <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">reference_wrapper</span></code>.
+      </p>
+<p>
+        Also, if the user needs to query for the specific type at runtime, the user
+        can do so with a single call to <code class="computeroutput"><span class="keyword">dynamic_cast</span></code>
+        to the specific polymorphic wrapper (rather than calling a second function
+        to query for the wrapped object).
+      </p>
+<p>
+        The design is simple to use, to learn and to read. These values were chasen
+        to avoid misuse by the user's part.
+      </p>
+<p>
+        Although very different, the name and inspiration were borrowed from <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3525.pdf" target="_top">N3525:
+        Polymorphic Allocators</a>.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_adaptor.template_parameters"></a><a class="link" href="server_socket_adaptor.html#reference.server_socket_adaptor.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Socket</span></code></span></dt>
+<dd><p>
+                The type to be wrapped.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_adaptor.specializations"></a><a class="link" href="server_socket_adaptor.html#reference.server_socket_adaptor.specializations" title="Specializations">Specializations</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">server_socket_adaptor</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">reference_wrapper</span><span class="special">&lt;</span><span class="identifier">Socket</span><span class="special">&gt;&gt;</span></code></span></dt>
+<dd></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_adaptor.member_types"></a><a class="link" href="server_socket_adaptor.html#reference.server_socket_adaptor.member_types" title="Member types">Member
+        types</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">typedef</span> <span class="identifier">Socket</span>
+            <span class="identifier">next_layer_type</span></code></span></dt>
+<dd><p>
+                The type of the wrapped socket.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_adaptor.member_functions"></a><a class="link" href="server_socket_adaptor.html#reference.server_socket_adaptor.member_functions" title="Member functions">Member
+        functions</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">Args</span><span class="special">&gt;</span>
+            <span class="identifier">server_socket_adaptor</span><span class="special">(</span><span class="identifier">Args</span><span class="special">&amp;&amp;...</span>
+            <span class="identifier">args</span><span class="special">)</span></code></span></dt>
+<dd>
+<p>
+                Constructor. <code class="computeroutput"><span class="identifier">args</span></code>
+                are forwarded to the underlying socket constructor.
+              </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  Not available under the <code class="computeroutput"><span class="identifier">server_socket_adaptor</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">reference_wrapper</span><span class="special">&lt;</span><span class="identifier">Socket</span><span class="special">&gt;&gt;</span></code> specialization.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">server_socket_adaptor</span><span class="special">(</span><span class="identifier">Socket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">)</span></code></span></dt>
+<dd>
+<p>
+                Constructor. <code class="computeroutput"><span class="identifier">socket</span></code>
+                is passed to the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">reference_wrapper</span></code>
+                constructor.
+              </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  Only available under the server_socket_adaptor&lt;std::reference_wrapper&lt;Socket&gt;&gt;
+                  specialization.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">next_layer_type</span> <span class="special">&amp;</span><span class="identifier">next_layer</span><span class="special">()</span></code></span></dt>
+<dd>
+<p>
+                Socket isn't exposed directly to avoid confusion over the duplication
+                of interfaces.
+              </p>
+<p>
+                The name socket is not used because both (the wrapped object and
+                this object itself) are sockets and it would be confusing.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">next_layer_type</span>
+            <span class="special">&amp;</span><span class="identifier">next_layer</span><span class="special">()</span> <span class="keyword">const</span></code></span></dt>
+<dd>
+<p>
+                Socket isn't exposed directly to avoid confusion over the duplication
+                of interfaces.
+              </p>
+<p>
+                The name socket is not used because both (the wrapped object and
+                this object itself) are sockets and it would be confusing.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="basic_socket.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_to_ptime.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
