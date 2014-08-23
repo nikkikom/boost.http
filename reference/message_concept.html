@@ -13,9 +13,527 @@
 <div class="spirit-nav">
 <a accesskey="p" href="file_server_errc.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="socket_concept.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.message_concept"></a><a class="link" href="message_concept.html" title="Message">Message</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="message_concept.html#reference.message_concept.definitions">Definitions</a></span></dt>
+<dt><span class="section"><a href="message_concept.html#reference.message_concept.notation">Notation</a></span></dt>
+<dt><span class="section"><a href="message_concept.html#reference.message_concept.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="message_concept.html#reference.message_concept.models">Models</a></span></dt>
+</dl></div>
+<p>
+        A container able to hold generic HTTP messages.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.message_concept.definitions"></a><a class="link" href="message_concept.html#reference.message_concept.definitions" title="Definitions">Definitions</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term">HTTP field name</span></dt>
+<dd>
+<p>
+                A string encoded with the <span class="emphasis"><em>ISO-8859-1</em></span> charset
+                whose contents are limited to the chars listed below (case-sensitive):
+              </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'!'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'#'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'$'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'%'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'&amp;'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'\''</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'*'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'+'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'-'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'.'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'^'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'_'</span></code>.
+                  </li>
+<li class="listitem">
+                    Backtick (i.e. <code class="computeroutput"><span class="char">'\x60'</span></code>).
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'|'</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="char">'~'</span></code>.
+                  </li>
+<li class="listitem">
+                    A digit (i.e. <code class="computeroutput"><span class="char">'0'</span></code>,
+                    <code class="computeroutput"><span class="char">'1'</span></code>, <code class="computeroutput"><span class="char">'2'</span></code>, <code class="computeroutput"><span class="char">'3'</span></code>,
+                    <code class="computeroutput"><span class="char">'4'</span></code>, <code class="computeroutput"><span class="char">'5'</span></code>, <code class="computeroutput"><span class="char">'6'</span></code>,
+                    <code class="computeroutput"><span class="char">'7'</span></code>, <code class="computeroutput"><span class="char">'8'</span></code> or <code class="computeroutput"><span class="char">'9'</span></code>).
+                  </li>
+<li class="listitem">
+                    A lowercase alphabetic (i.e. <code class="computeroutput"><span class="char">'a'</span></code>,
+                    <code class="computeroutput"><span class="char">'b'</span></code>, <code class="computeroutput"><span class="char">'c'</span></code>, <code class="computeroutput"><span class="char">'d'</span></code>,
+                    <code class="computeroutput"><span class="char">'e'</span></code>, <code class="computeroutput"><span class="char">'f'</span></code>, <code class="computeroutput"><span class="char">'g'</span></code>,
+                    <code class="computeroutput"><span class="char">'h'</span></code>, <code class="computeroutput"><span class="char">'i'</span></code>, <code class="computeroutput"><span class="char">'j'</span></code>,
+                    <code class="computeroutput"><span class="char">'k'</span></code>, <code class="computeroutput"><span class="char">'l'</span></code>, <code class="computeroutput"><span class="char">'m'</span></code>,
+                    <code class="computeroutput"><span class="char">'n'</span></code>, <code class="computeroutput"><span class="char">'o'</span></code>, <code class="computeroutput"><span class="char">'p'</span></code>,
+                    <code class="computeroutput"><span class="char">'q'</span></code>, <code class="computeroutput"><span class="char">'r'</span></code>, <code class="computeroutput"><span class="char">'s'</span></code>,
+                    <code class="computeroutput"><span class="char">'t'</span></code>, <code class="computeroutput"><span class="char">'u'</span></code>, <code class="computeroutput"><span class="char">'v'</span></code>,
+                    <code class="computeroutput"><span class="char">'w'</span></code>, <code class="computeroutput"><span class="char">'x'</span></code>, <code class="computeroutput"><span class="char">'y'</span></code>
+                    or <code class="computeroutput"><span class="char">'z'</span></code>).
+                  </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  Any uppercase character received through the wire MUST be normalized
+                  (i.e. converted to lowercase).
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term">HTTP field value</span></dt>
+<dd>
+<p>
+                A string encoded with the <span class="emphasis"><em>ISO-8859-1</em></span> charset
+                whose contents are limited to the chars listed below (whether they're
+                case-sensitive or not is defined on a header-by-header basis and,
+                as such, they all are considered case-sensitive in this layer of
+                abstraction):
+              </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                    Any visible <span class="emphasis"><em>USASCII</em></span> character.
+                  </li>
+<li class="listitem">
+                    Any character in the closed interval (i.e. both ends are inclusive)
+                    between <code class="computeroutput"><span class="char">'\x80'</span></code> and
+                    <code class="computeroutput"><span class="char">'\xFF'</span></code>. The use of
+                    these characters within the <span class="emphasis"><em>HTTP field value</em></span>
+                    is obsolete and should be avoided.
+                  </li>
+<li class="listitem">
+                    Space (i.e. <code class="computeroutput"><span class="char">' '</span></code>) and
+                    horizontal tab (i.e. <code class="computeroutput"><span class="char">'\t'</span></code>).
+                    These characters are not allowed in the beginning or in the end
+                    of the <span class="emphasis"><em>HTTP field value</em></span>.
+                  </li>
+</ul></div>
+</dd>
+<dt><span class="term">HTTP field</span></dt>
+<dd>
+                A pair whose first element is an <span class="emphasis"><em>HTTP field name</em></span>
+                and second element is an <span class="emphasis"><em>HTTP field value</em></span>.
+              </dd>
+<dt><span class="term">HTTP header section</span></dt>
+<dd>
+<p>
+                A set of <span class="emphasis"><em>HTTP fields</em></span> received in the same chunk
+                (e.g. the HTTP header section defined in the RFC 7230).
+              </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  For fields with equivalent field names, the relative order is preserved.
+                </p></td></tr>
+</table></div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.message_concept.notation"></a><a class="link" href="message_concept.html#reference.message_concept.notation" title="Notation">Notation</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">X</span></code></span></dt>
+<dd><p>
+                A type that is a model of <code class="computeroutput"><span class="identifier">Message</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Headers</span></code></span></dt>
+<dd>
+<p>
+                A type fulfilling the following requirements:
+              </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                    The C++11 concept of associative containers (<span class="emphasis"><em>associative.reqmts</em></span>)<sup>[<a name="reference.message_concept.notation.f0" href="#ftn.reference.message_concept.notation.f0" class="footnote">11</a>]</sup>.
+                  </li>
+<li class="listitem">
+                    It supports equivalent keys.
+                  </li>
+<li class="listitem">
+                    Value type is equal to <code class="computeroutput"><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">const</span>
+                    <span class="identifier">Key</span><span class="special">,</span>
+                    <span class="identifier">T</span><span class="special">&gt;</span></code>.
+                  </li>
+<li class="listitem">
+                    <code class="computeroutput"><span class="identifier">mapped_type</span></code> is
+                    available with the same semantics for multimap.
+                  </li>
+<li class="listitem">
+<p class="simpara">
+                    <code class="computeroutput"><span class="identifier">Headers</span><span class="special">::</span><span class="identifier">key_type</span></code> MUST fulfill the requirements
+                    for a String (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>).
+                  </p>
+<p class="simpara">
+                    <code class="computeroutput"><span class="identifier">Headers</span><span class="special">::</span><span class="identifier">key_type</span><span class="special">::</span><span class="identifier">value_type</span></code> MUST be able to
+                    represent all values in the <span class="emphasis"><em>ISO-8859-1</em></span> charset
+                    except for the upper case versions of the alphabetic characters.
+                  </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                      Inserting elements in <code class="computeroutput"><span class="identifier">Headers</span></code>
+                      instances whose keys contains uppercase char(s) invoke undefined
+                      behaviour.
+                    </p></td></tr>
+</table></div>
+</li>
+<li class="listitem">
+<p class="simpara">
+                    <code class="computeroutput"><span class="identifier">Headers</span><span class="special">::</span><span class="identifier">mapped_type</span></code> MUST fulfill the
+                    requirements for a String (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>).
+                  </p>
+<p class="simpara">
+                    <code class="computeroutput"><span class="identifier">Headers</span><span class="special">::</span><span class="identifier">mapped_type</span><span class="special">::</span><span class="identifier">value_type</span></code> MUST be able to
+                    represent all values in the <span class="emphasis"><em>ISO-8859-1</em></span> charset.
+                  </p>
+</li>
+</ul></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Body</span></code></span></dt>
+<dd>
+                A type fulfilling the C++ concept of sequence containers (<span class="emphasis"><em>sequence.reqmts</em></span>).
+              </dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">a</span></code></span></dt>
+<dd><p>
+                Object of type <code class="computeroutput"><span class="identifier">X</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ca</span></code></span></dt>
+<dd><p>
+                Object of type <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">X</span></code>.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.message_concept.requirements"></a><a class="link" href="message_concept.html#reference.message_concept.requirements" title="Requirements">Requirements</a>
+</h3></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Expression
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Return type
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Precondition
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Semantics
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Postcondition
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">headers_type</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">Headers</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">body_type</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">Body</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">headers_type</span><span class="special">&amp;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        It should be used to represent the <span class="emphasis"><em>HTTP header
+                        section</em></span> received/to-be-sent before the HTTP body
+                        data payload.
+                      </li>
+<li class="listitem">
+                        Always returns a reference to the same object.
+                      </li>
+<li class="listitem">
+                        The returned object MUST <span class="bold"><strong>NOT</strong></span>
+                        be shared with the one returned by <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">trailers</span><span class="special">()</span></code>.
+                      </li>
+</ul></div>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ca</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">X</span><span class="special">::</span><span class="identifier">headers_type</span><span class="special">&amp;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        It should be used to represent the <span class="emphasis"><em>HTTP header
+                        section</em></span> received/to-be-sent before the HTTP body
+                        data payload.
+                      </li>
+<li class="listitem">
+                        Always returns a reference to the same object.
+                      </li>
+<li class="listitem">
+                        The returned object MUST <span class="bold"><strong>NOT</strong></span>
+                        be shared with the one returned by <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">trailers</span><span class="special">()</span></code>.
+                      </li>
+</ul></div>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">body</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">body_type</span><span class="special">&amp;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        It should be used to represent chunks of the HTTP body data
+                        payload.
+                      </li>
+<li class="listitem">
+                        Always returns a reference to the same object.
+                      </li>
+</ul></div>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ca</span><span class="special">.</span><span class="identifier">body</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">X</span><span class="special">::</span><span class="identifier">body_type</span><span class="special">&amp;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        It should be used to represent chunks of the HTTP body data
+                        payload.
+                      </li>
+<li class="listitem">
+                        Always returns a reference to the same object.
+                      </li>
+</ul></div>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">trailers</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">trailers_type</span><span class="special">&amp;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        It should be used to represent the <span class="emphasis"><em>HTTP header
+                        section</em></span> received/to-be-sent after the HTTP body
+                        data payload.
+                      </li>
+<li class="listitem">
+                        Always returns a reference to the same object.
+                      </li>
+<li class="listitem">
+                        The returned object MUST <span class="bold"><strong>NOT</strong></span>
+                        be shared with the one returned by <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>.
+                      </li>
+</ul></div>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ca</span><span class="special">.</span><span class="identifier">trailers</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">X</span><span class="special">::</span><span class="identifier">trailers_type</span><span class="special">&amp;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        It should be used to represent the <span class="emphasis"><em>HTTP header
+                        section</em></span> received/to-be-sent after the HTTP body
+                        data payload.
+                      </li>
+<li class="listitem">
+                        Always returns a reference to the same object.
+                      </li>
+<li class="listitem">
+                        The returned object MUST <span class="bold"><strong>NOT</strong></span>
+                        be shared with the one returned by <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>.
+                      </li>
+</ul></div>
+                </td>
+<td>
+                </td>
+</tr>
+</tbody>
+</table></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              Failing to comply with the <span class="quote">&#8220;<span class="quote">MUST</span>&#8221;</span> and <span class="quote">&#8220;<span class="quote">MUST <span class="bold"><strong>NOT</strong></span></span>&#8221;</span> conditions described previously
+              invokes undefined behaviour.
+            </li></ol></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.message_concept.models"></a><a class="link" href="message_concept.html#reference.message_concept.models" title="Models">Models</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="literal"><a class="link" href="message.html" title="message">message</a></code>
+            </li>
+<li class="listitem">
+              <code class="literal"><a class="link" href="basic_message.html" title="basic_message">basic_message</a></code>
+            </li>
+</ul></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.reference.message_concept.notation.f0" href="#reference.message_concept.notation.f0" class="para">11</a>] </sup>
+                      The C++11 update gives extra guarantees about preserving the
+                      insertion ordering for elements with equivalent keys.
+                    </p></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>

@@ -25,25 +25,25 @@
 $ make MAKEOPTIONS
 </pre>
 <p>
-        <code class="computeroutput"><span class="identifier">OPTIONS</span></code> can be null or have
-        a combination of the following values:
+        <code class="literal">OPTIONS</code> can be null or have a combination of the following
+        values:
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_INSTALL_PREFIX</span><span class="special">=</span><span class="error">$</span><span class="special">{</span><span class="identifier">INSTALLDIR</span><span class="special">}</span></code>
-            sets the directory where to install Tuf&#227;o.
+            <code class="literal">-DCMAKE_INSTALL_PREFIX=${INSTALLDIR}</code> sets the directory
+            where to install Tuf&#227;o.
           </li>
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">Debug</span></code>.
+            <code class="literal">-DCMAKE_BUILD_TYPE=Debug</code>.
           </li>
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">Release</span></code>.
+            <code class="literal">-DCMAKE_BUILD_TYPE=Release</code>.
           </li>
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">RelWithDebInfo</span></code>.
+            <code class="literal">-DCMAKE_BUILD_TYPE=RelWithDebInfo</code>.
           </li>
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">DCMAKE_BUILD_TYPE</span><span class="special">=</span><span class="identifier">MinSizeRel</span></code>.
+            <code class="literal">-DCMAKE_BUILD_TYPE=MinSizeRel</code>.
           </li>
 </ul></div>
 <p>
@@ -51,25 +51,24 @@ $ make MAKEOPTIONS
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">G</span><span class="string">"MinGW Makefiles"</span></code> to generate
-            Makefiles for use with MinGW environment.
+            <code class="literal">-G"MinGW Makefiles"</code> to generate Makefiles
+            for use with MinGW environment.
           </li>
 <li class="listitem">
-            <code class="computeroutput"><span class="special">-</span><span class="identifier">G</span><span class="string">"Visual Studio 10"</span></code> to generate
-            project files for Visual Studio 10.
+            <code class="literal">-G"Visual Studio 10"</code> to generate project
+            files for Visual Studio 10.
           </li>
 </ul></div>
 <p>
-        <code class="computeroutput"><span class="identifier">MAKEOPTIONS</span></code> can be null or
-        have a combination of the following values:
+        <code class="literal">MAKEOPTIONS</code> can be null or have a combination of the following
+        values:
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-            <code class="computeroutput"><span class="identifier">install</span></code> installs this
-            library.
+            <code class="literal">install</code> installs this library.
           </li>
 <li class="listitem">
-            <code class="computeroutput"><span class="identifier">DESTDIR</span><span class="special">=</span><span class="error">$</span><span class="special">{</span><span class="identifier">PKGDIR</span><span class="special">}</span></code> sets the directory where to install
+            <code class="literal">DESTDIR=${PKGDIR}</code> sets the directory where to install
             this library. This options should be used if you intend to package this
             library to set the package directory. To choose another installation
             directory, see options in OPTIONS, above.

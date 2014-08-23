@@ -17,28 +17,373 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.async_response_transmit_file"></a><a class="link" href="async_response_transmit_file.html" title="async_response_transmit_file">async_response_transmit_file</a>
 </h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.return_value">Return
+        value</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.see_also">See
+        also</a></span></dt>
+</dl></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">file_server</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
         This function has two overloads.
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">ServerSocket</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Message</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
-<span class="keyword">typename</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
-                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
+                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
 <span class="identifier">async_response_transmit_file</span><span class="special">(</span><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">imessage</span><span class="special">,</span>
-                             <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span><span class="special">,</span>
+                             <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span>
+                             <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span><span class="special">,</span>
                              <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">);</span> <span class="comment">// (1)</span>
-
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">ServerSocket</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Message</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
-<span class="keyword">typename</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
-                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">ServerSocket</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Message</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
+                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
 <span class="identifier">async_response_transmit_file</span><span class="special">(</span><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">imessage</span><span class="special">,</span>
-                             <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span><span class="special">,</span>
+                             <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span> <span class="keyword">const</span>
+                             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span><span class="special">,</span>
                              <span class="keyword">bool</span> <span class="identifier">is_head_request</span><span class="special">,</span>
                              <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">);</span> <span class="comment">// (2)</span>
 </pre>
+<p>
+        This function will handle a big part of the file serving job for you, such
+        as:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            It'll interpret and process the request headers. However, it doesn't
+            process the request method nor the the input path. This means you still
+            have to guarantee the method is applicable and you're also expected to
+            resolve the input path to a valid local file path.
+          </li>
+<li class="listitem">
+            It'll fill all the applicable response headers appropriate to the request.
+          </li>
+<li class="listitem">
+            It'll interpret the file attributes to process conditional requests and
+            partial download. However, MIME detection (the <code class="computeroutput"><span class="string">"content-type"</span></code>
+            optional header) is still left for the user to handler.
+          </li>
+</ul></div>
+<p>
+        Summarizing your responsibilities:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            Ensure it is a <code class="computeroutput"><span class="string">"GET"</span></code>
+            method or a method with similar semantics before calling this function.
+            <span class="emphasis"><em>Overload 2</em></span> also accepts the <code class="computeroutput"><span class="string">"HEAD"</span></code>
+            method.
+          </li>
+<li class="listitem">
+            Resolve the input URL to the appropriate file.
+          </li>
+<li class="listitem">
+            <span class="bold"><strong>Optional</strong></span>: MIME detection (the <code class="computeroutput"><span class="string">"content-type"</span></code> header).
+          </li>
+</ul></div>
+<p>
+        A method with semantics similar to the <code class="computeroutput"><span class="string">"GET"</span></code>
+        method is any method fulfilling the following conditions:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            The body data payload for the response message is compatible.
+          </li>
+<li class="listitem">
+            The following headers for the request message have the same meaning:
+            <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"if-modified-since"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"if-range"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"if-unmodified-since"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"range"</span></code>
+                </li>
+</ul></div>
+          </li>
+<li class="listitem">
+            The following headers for the response message have the same meaning
+            or don't affect the message processing:
+            <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"accept-ranges"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"content-range"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"content-type"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"date"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"last-modified"</span></code>
+                </li>
+</ul></div>
+          </li>
+<li class="listitem">
+            The same set of status code for the response are applicable.
+            <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"200 OK"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"206 Partial Content"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"304 Not Modified"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"412 Precondition Failed"</span></code>
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="string">"416 Range Not Satisfiable"</span></code>
+                </li>
+</ul></div>
+          </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          This function will call the handler with <code class="computeroutput"><span class="identifier">file_server_errc</span><span class="special">::</span><span class="identifier">io_error</span></code>
+          if any operation on the <span class="bold"><strong>file stream</strong></span> fails
+          or throws an exception.
+        </p></td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          The response headers filled by this function MUST NOT be sent through trailers.
+          Therefore, this function will not do any operation and it will call the
+          handler with an <code class="computeroutput"><span class="identifier">error_code</span></code>
+          (<code class="computeroutput"><span class="identifier">file_server_errc</span><span class="special">::</span><span class="identifier">write_state_not_supported</span></code>) set if you
+          pass a socket for which the headers were already sent.
+        </p></td></tr>
+</table></div>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          async_response_transmit_file will make use of the streaming interface only
+          if available.
+        </p>
+<p>
+          If you want to avoid wasting memory under HTTP/1.0 and other non-streaming
+          capable channels, starting points for two solutions are:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Reject channels without a streaming interface (e.g. HTTP/1.0). RFC
+              2068 (a.k.a. HTTP/1.1) has been available since January 1997.
+            </li>
+<li class="listitem">
+              Write a custom message type that adapts the filestream to the message
+              concept and specialize the algorithm for such message.
+            </li>
+</ul></div>
+</td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          <code class="computeroutput"><span class="identifier">omessage</span><span class="special">.</span><span class="identifier">body</span><span class="special">()</span></code>
+          will be used as output buffer. If <code class="computeroutput"><span class="identifier">omessage</span><span class="special">.</span><span class="identifier">body</span><span class="special">().</span><span class="identifier">capacity</span><span class="special">()</span> <span class="special">==</span> <span class="number">0</span></code>,
+          an unspecified buffer size will be used and it is very likely it'll be
+          highly inefficient.
+        </p></td></tr>
+</table></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_file.template_parameters"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ServerSocket</span></code></span></dt>
+<dd><p>
+                Must fulfill the requirements for the <code class="literal"><a class="link" href="server_socket_concept.html" title="ServerSocket">ServerSocket
+                concept</a></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span></code></span></dt>
+<dd>
+<p>
+                Must fulfill the requirements for the <code class="literal"><a class="link" href="message_concept.html" title="Message">Message
+                concept</a></code>.
+              </p>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+                  <code class="computeroutput"><span class="identifier">Message</span><span class="special">::</span><span class="identifier">body_type</span></code> MUST fulfill the following
+                  extra requirements:
+                </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                      Its elements MUST be stored contiguously (e.g. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>).
+                    </li>
+<li class="listitem">
+                      It MUST support C++11 <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>
+                      capicity and data semantics (<span class="emphasis"><em>vector.capacity</em></span>
+                      and <span class="emphasis"><em>vector.data</em></span>, respectively).
+                    </li>
+</ul></div>
+<p>
+                  These extra requirements are posed because file APIs are defined
+                  in terms of buffer<sup>[<a name="reference.async_response_transmit_file.template_parameters.f0" href="#ftn.reference.async_response_transmit_file.template_parameters.f0" class="footnote">10</a>]</sup> operations.
+                </p>
+</td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span></code></span></dt>
+<dd>
+<p class="simpara">
+                Must fulfill the ASIO requirements for a completion token.
+              </p>
+<p class="simpara">
+                The used handler signature is <code class="computeroutput"><span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)</span></code>.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_file.parameters"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.parameters" title="Parameters">Parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span></code></span></dt>
+<dd><p>
+                The socket associated with the <span class="emphasis"><em>imessage</em></span> and
+                <span class="emphasis"><em>omessage</em></span> that will be used for the response.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">Message</span>
+            <span class="special">&amp;</span><span class="identifier">imessage</span></code></span></dt>
+<dd><p>
+                The request message received.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span></code></span></dt>
+<dd>
+<p>
+                The message object that should be used to reply the message.
+              </p>
+<p>
+                The user might be interested in filling some extra headers here like
+                <code class="computeroutput"><span class="string">"content-type"</span></code>
+                or cache policies.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span></code></span></dt>
+<dd>
+<p>
+                The requested file that should be transmitted.
+              </p>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  If you cannot guarantee the <span class="emphasis"><em>file</em></span> did not change
+                  twice during the second covered by the last write time, you should
+                  remove all <code class="computeroutput"><span class="string">"range"</span></code>
+                  and <code class="computeroutput"><span class="string">"if-range"</span></code>
+                  headers from <span class="emphasis"><em>imessage</em></span> before calling this
+                  function. It's possible to construct a more robust file server
+                  by making use of system-level APIs that can provide unique identifiers
+                  for file revisions.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">bool</span> <span class="identifier">is_head_request</span></code></span></dt>
+<dd>
+<p>
+                Whether the request was made with a <code class="computeroutput"><span class="string">"HEAD"</span></code>
+                method.
+              </p>
+<p>
+                If the received request isn't <code class="computeroutput"><span class="string">"GET"</span></code>
+                nor <code class="computeroutput"><span class="string">"HEAD"</span></code>,
+                you MAY remove all <code class="computeroutput"><span class="string">"range"</span></code>
+                and <code class="computeroutput"><span class="string">"if-range"</span></code>
+                headers and pass the value <code class="computeroutput"><span class="keyword">false</span></code>
+                to this argument.
+              </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  Available only for <span class="emphasis"><em>overload 2</em></span>.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span></code></span></dt>
+<dd>
+<p>
+                The token from which the handler and the return value are extracted.
+              </p>
+<p>
+                The extracted handler is called when the operation completes.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_file.return_value"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.return_value" title="Return value">Return
+        value</a>
+</h3></div></div></div>
+<p>
+          Extracted using <span class="emphasis"><em>token</em></span>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_file.see_also"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.see_also" title="See also">See
+        also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="literal"><a class="link" href="async_response_transmit_dir.html" title="async_response_transmit_dir">async_response_transmit_dir</a></code>
+            </li></ul></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.reference.async_response_transmit_file.template_parameters.f0" href="#reference.async_response_transmit_file.template_parameters.f0" class="para">10</a>] </sup>
+                    objects with contiguous storage of bytes.
+                  </p></div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

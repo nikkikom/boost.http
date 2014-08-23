@@ -13,9 +13,306 @@
 <div class="spirit-nav">
 <a accesskey="p" href="async_response_transmit_file.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="read_state.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.async_response_transmit_dir"></a><a class="link" href="async_response_transmit_dir.html" title="async_response_transmit_dir">async_response_transmit_dir</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="async_response_transmit_dir.html#reference.async_response_transmit_dir.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_dir.html#reference.async_response_transmit_dir.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_dir.html#reference.async_response_transmit_dir.return_value">Return
+        value</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_dir.html#reference.async_response_transmit_dir.see_also">See
+        also</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">file_server</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        This function has two overloads.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">ServerSocket</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">String</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">ConvertibleToPath</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">Message</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
+                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="identifier">async_response_transmit_dir</span><span class="special">(</span><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">String</span> <span class="special">&amp;</span><span class="identifier">method</span><span class="special">,</span>
+                            <span class="keyword">const</span> <span class="identifier">ConvertibleToPath</span> <span class="special">&amp;</span><span class="identifier">ipath</span><span class="special">,</span>
+                            <span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">imessage</span><span class="special">,</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span>
+                            <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">root_dir</span><span class="special">,</span>
+                            <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">);</span> <span class="comment">// (1)</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">ServerSocket</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">String</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">ConvertibleToPath</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">Message</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Predicate</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
+                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="identifier">async_response_transmit_dir</span><span class="special">(</span><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">String</span> <span class="special">&amp;</span><span class="identifier">method</span><span class="special">,</span>
+                            <span class="keyword">const</span> <span class="identifier">ConvertibleToPath</span> <span class="special">&amp;</span><span class="identifier">ipath</span><span class="special">,</span>
+                            <span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">imessage</span><span class="special">,</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span>
+                            <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">root_dir</span><span class="special">,</span>
+                            <span class="identifier">Predicate</span> <span class="identifier">filter</span><span class="special">,</span> <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">);</span> <span class="comment">// (2)</span>
+</pre>
+<p>
+        This function does a lot more than just sending bytes. It carries the responsibilities
+        from <code class="literal"><a class="link" href="async_response_transmit_file.html" title="async_response_transmit_file">async_response_transmit_file</a></code>,
+        but add a few more of its own:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            It'll also handle the method.
+          </li>
+<li class="listitem">
+            It'll also handle the file resolution. It does so with respect to the
+            given root_dir argument.
+          </li>
+</ul></div>
+<p>
+        The only feature missing is mime support (<code class="computeroutput"><span class="string">"content-type"</span></code>
+        header). It cannot be done reliably within this abstraction.
+      </p>
+<p>
+        This function will handle even the start line and the only acceptable <code class="computeroutput"><span class="identifier">write_state</span></code> is <code class="computeroutput"><span class="identifier">empty</span></code>.
+        It'll fail on any other <code class="computeroutput"><span class="identifier">write_state</span></code>.
+      </p>
+<p>
+        All urls are absolute, but are absolute with respect to the given <span class="emphasis"><em>root_dir</em></span>.
+        This interface provides no means to disable this security check. If the user
+        needs that much complex logic, then it should write its own path resolving
+        solution and use <code class="literal"><a class="link" href="async_response_transmit_file.html" title="async_response_transmit_file">async_response_transmit_file</a></code>.
+      </p>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          This function will call the handler with <code class="computeroutput"><span class="identifier">file_server_category</span><span class="special">::</span><span class="identifier">file_not_found</span></code>
+          if the requested file, with respect to the given <span class="emphasis"><em>root_dir</em></span>,
+          cannot be found. The channel remains untouched in this case, giving the
+          user the opportunity to send custom 404 messages.
+        </p></td></tr>
+</table></div>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          This function will call the handler with <code class="computeroutput"><span class="identifier">file_server_category</span><span class="special">::</span><span class="identifier">file_type_not_supported</span></code>
+          if resolution finishes but this function cannot process the result because
+          the file is not regular (directories, block devices, links...). The channel
+          is also left untouched, giving the user the opportunity to use another
+          HTTP consumer.
+        </p></td></tr>
+</table></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_dir.template_parameters"></a><a class="link" href="async_response_transmit_dir.html#reference.async_response_transmit_dir.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ServerSocket</span></code></span></dt>
+<dd><p>
+                Must fulfill the requirements for the <code class="literal"><a class="link" href="server_socket_concept.html" title="ServerSocket">ServerSocket
+                concept</a></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">String</span></code></span></dt>
+<dd><p>
+                Must fulfill the C++ requirements for <code class="computeroutput"><span class="identifier">String</span></code>
+                (see the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code> container).
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ConvertibleToPath</span></code></span></dt>
+<dd><p>
+                A type whose instances can be used to construct a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span></code>
+                object.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span></code></span></dt>
+<dd><p>
+                Must fulfill the requirements for the <code class="literal"><a class="link" href="message_concept.html" title="Message">Message
+                concept</a></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Predicate</span></code></span></dt>
+<dd>
+<p>
+                A type whose instances are callable and have the following signature:
+              </p>
+<pre class="programlisting"><span class="keyword">bool</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">resolved_path</span><span class="special">)</span>
+</pre>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span></code></span></dt>
+<dd>
+<p>
+                Must fulfill the ASIO requirements for a completion token.
+              </p>
+<p>
+                The used handler signature is <code class="computeroutput"><span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)</span></code>.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_dir.parameters"></a><a class="link" href="async_response_transmit_dir.html#reference.async_response_transmit_dir.parameters" title="Parameters">Parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span></code></span></dt>
+<dd><p>
+                The socket associated with the <span class="emphasis"><em>imessage</em></span> and
+                <span class="emphasis"><em>omessage</em></span> that will be used for the response.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">String</span>
+            <span class="special">&amp;</span><span class="identifier">method</span></code></span></dt>
+<dd>
+<p>
+                The request method.
+              </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  Any request method is acceptable, but any method other than <code class="computeroutput"><span class="string">"GET"</span></code> and <code class="computeroutput"><span class="string">"HEAD"</span></code> will be responded
+                  with <code class="computeroutput"><span class="string">"405 Method Not Allowed"</span></code>.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">ConvertibleToPath</span>
+            <span class="special">&amp;</span><span class="identifier">ipath</span></code></span></dt>
+<dd>
+<p>
+                <span class="emphasis"><em>ipath</em></span> (standing for input path) is the <span class="bold"><strong>parsed path</strong></span> from the requested url.
+              </p>
+<p>
+                It's guaranteed that it'll only be used to construct a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span></code> object. Thus, the user can
+                fake the requested path to force an <span class="emphasis"><em>internal redirect</em></span>.
+              </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  This is the input <span class="bold"><strong>path component</strong></span>,
+                  not the input URL. Therefore, you MUST parse the input url before
+                  dispatching it to this function and only the path component must
+                  be forwarded. Extracting the path is an extra responsibility for
+                  the user, but it is an useful abstraction for scenarios where the
+                  user doesn't control the served root dir. Thanks to the security
+                  check, this <span class="emphasis"><em>internal redirect</em></span> trick doesn't
+                  work for files outside the <span class="emphasis"><em>root_dir</em></span>.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">Message</span>
+            <span class="special">&amp;</span><span class="identifier">imessage</span></code></span></dt>
+<dd><p>
+                The request message received.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span></code></span></dt>
+<dd>
+<p>
+                The message object that should be used to reply the message.
+              </p>
+<p>
+                The user might be interested in filling some extra headers here like
+                <code class="computeroutput"><span class="string">"content-type"</span></code>
+                or cache policies.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">root_dir</span></code></span></dt>
+<dd><p>
+                The dir to be interpreted as the root dir of requested files.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Predicate</span> <span class="identifier">filter</span></code></span></dt>
+<dd>
+<p>
+                It is applied to the resolved path as the last step before proceeding
+                to file and network operations.
+              </p>
+<p>
+                If filter returns <code class="computeroutput"><span class="keyword">false</span></code>,
+                the functions finishes before touching the channel, with the error_code
+                <code class="computeroutput"><span class="identifier">file_server_category</span><span class="special">::</span><span class="identifier">filter_set</span></code>.
+              </p>
+<div class="tip"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../images/tip.png"></td>
+<th align="left">Tip</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  It's possible to use a stateful non-pure <span class="emphasis"><em>filter</em></span>
+                  to add response headers and properly process mime types (content-type
+                  header).
+                </p></td></tr>
+</table></div>
+<div class="tip"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../images/tip.png"></td>
+<th align="left">Tip</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  <span class="emphasis"><em>filter</em></span> can also be used to redirect files
+                  by modifying the input arg.
+                </p></td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  This function might throw if <span class="emphasis"><em>filter</em></span> throws.
+                  In this case, we provide the basic exception guarantee.
+                </p></td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                  Available only for <span class="emphasis"><em>overload 2</em></span>.
+                </p></td></tr>
+</table></div>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span></code></span></dt>
+<dd>
+<p>
+                The token from which the handler and the return value are extracted.
+              </p>
+<p>
+                The extracted handler is called when the operation completes.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_dir.return_value"></a><a class="link" href="async_response_transmit_dir.html#reference.async_response_transmit_dir.return_value" title="Return value">Return
+        value</a>
+</h3></div></div></div>
+<p>
+          Extracted using <span class="emphasis"><em>token</em></span>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_dir.see_also"></a><a class="link" href="async_response_transmit_dir.html#reference.async_response_transmit_dir.see_also" title="See also">See
+        also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="literal"><a class="link" href="async_response_transmit_file.html" title="async_response_transmit_file">async_response_transmit_file</a></code>
+            </li></ul></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
