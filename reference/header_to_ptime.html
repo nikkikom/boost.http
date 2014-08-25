@@ -13,9 +13,102 @@
 <div class="spirit-nav">
 <a accesskey="p" href="server_socket_adaptor.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="to_http_date.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.header_to_ptime"></a><a class="link" href="header_to_ptime.html" title="header_to_ptime">header_to_ptime</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="header_to_ptime.html#reference.header_to_ptime.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="header_to_ptime.html#reference.header_to_ptime.paremeters">Paremeters</a></span></dt>
+<dt><span class="section"><a href="header_to_ptime.html#reference.header_to_ptime.return_value">Return value</a></span></dt>
+<dt><span class="section"><a href="header_to_ptime.html#reference.header_to_ptime.see_also">See also</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">header</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">StringRef</span><span class="special">&gt;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span> <span class="identifier">header_to_ptime</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">StringRef</span> <span class="special">&amp;</span><span class="identifier">value</span><span class="special">)</span>
+</pre>
+<p>
+        Converts an <span class="emphasis"><em>HTTP-date</em></span><sup>[<a name="reference.header_to_ptime.f0" href="#ftn.reference.header_to_ptime.f0" class="footnote">10</a>]</sup> field value into <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code>.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          Values containing extra whitespace at the beginning or at the end of <span class="emphasis"><em>value</em></span>
+          will be rejected and no conversion will be done. This behaviour is intentional.
+        </p></td></tr>
+</table></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.header_to_ptime.template_parameters"></a><a class="link" href="header_to_ptime.html#reference.header_to_ptime.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">StringRef</span></code></span></dt>
+<dd><p>
+                It MUST fulfill the requirements of the <code class="computeroutput"><span class="identifier">StringRef</span></code>
+                concept (i.e. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">basic_string_ref</span></code>).
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.header_to_ptime.paremeters"></a><a class="link" href="header_to_ptime.html#reference.header_to_ptime.paremeters" title="Paremeters">Paremeters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">StringRef</span>
+            <span class="special">&amp;</span><span class="identifier">value</span></code></span></dt>
+<dd><p>
+                An <span class="emphasis"><em>HTTP-date</em></span>.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.header_to_ptime.return_value"></a><a class="link" href="header_to_ptime.html#reference.header_to_ptime.return_value" title="Return value">Return value</a>
+</h3></div></div></div>
+<p>
+          The converted value if <span class="emphasis"><em>value</em></span> is a valid <span class="emphasis"><em>HTTP-date</em></span>
+          or <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span><span class="special">(</span><span class="identifier">date_time</span><span class="special">::</span><span class="identifier">not_a_date_time</span><span class="special">)</span></code>
+          otherwise.
+        </p>
+<div class="tip"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../images/tip.png"></td>
+<th align="left">Tip</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            You can use <code class="computeroutput"><span class="identifier">ptime</span></code>'s
+            <code class="computeroutput"><span class="identifier">is_not_a_date_time</span><span class="special">()</span></code>
+            member-function to check if the conversion failed.
+          </p></td></tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.header_to_ptime.see_also"></a><a class="link" href="header_to_ptime.html#reference.header_to_ptime.see_also" title="See also">See also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="literal"><a class="link" href="to_http_date.html" title="to_http_date">to_http_date</a></code>
+            </li></ul></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.reference.header_to_ptime.f0" href="#reference.header_to_ptime.f0" class="para">10</a>] </sup>
+          Defined in RFC 7231, section 7.1.1.1.
+        </p></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>

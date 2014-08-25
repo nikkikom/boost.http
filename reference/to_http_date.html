@@ -13,9 +13,84 @@
 <div class="spirit-nav">
 <a accesskey="p" href="header_to_ptime.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_value_any_of.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.to_http_date"></a><a class="link" href="to_http_date.html" title="to_http_date">to_http_date</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="to_http_date.html#reference.to_http_date.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="to_http_date.html#reference.to_http_date.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="to_http_date.html#reference.to_http_date.return_value">Return value</a></span></dt>
+<dt><span class="section"><a href="to_http_date.html#reference.to_http_date.exceptions">Exceptions</a></span></dt>
+<dt><span class="section"><a href="to_http_date.html#reference.to_http_date.see_also">See also</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">header</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">String</span><span class="special">&gt;</span>
+<span class="identifier">String</span> <span class="identifier">to_http_date</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span> <span class="special">&amp;</span><span class="identifier">datetime</span><span class="special">)</span>
+</pre>
+<p>
+        Converts a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> into the preferred string representation
+        according to section 7.1.1.1 of RFC 7231 (i.e. fixed length/zone/capitalization
+        subset of the format defined in section 3.3 of RFC 5322).
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.to_http_date.template_parameters"></a><a class="link" href="to_http_date.html#reference.to_http_date.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">String</span></code></span></dt>
+<dd><p>
+                It MUST fulfill the requirements of the <code class="computeroutput"><span class="identifier">String</span></code>
+                concept (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>).
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.to_http_date.parameters"></a><a class="link" href="to_http_date.html#reference.to_http_date.parameters" title="Parameters">Parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span> <span class="special">&amp;</span><span class="identifier">datetime</span></code></span></dt>
+<dd><p>
+                The timepoint to be converted. It MUST be in UTC timezone.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.to_http_date.return_value"></a><a class="link" href="to_http_date.html#reference.to_http_date.return_value" title="Return value">Return value</a>
+</h3></div></div></div>
+<p>
+          The string representation in the preferred format (a.k.a. <span class="emphasis"><em>IMF-fixdate</em></span>).
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.to_http_date.exceptions"></a><a class="link" href="to_http_date.html#reference.to_http_date.exceptions" title="Exceptions">Exceptions</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">out_of_range</span></code>: If invalid <span class="emphasis"><em>datetime</em></span>
+              is given.
+            </li></ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.to_http_date.see_also"></a><a class="link" href="to_http_date.html#reference.to_http_date.see_also" title="See also">See also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="literal"><a class="link" href="header_to_ptime.html" title="header_to_ptime">header_to_ptime</a></code>
+            </li></ul></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>

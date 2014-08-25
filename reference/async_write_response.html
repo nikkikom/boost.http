@@ -13,9 +13,120 @@
 <div class="spirit-nav">
 <a accesskey="p" href="request_upgrade_desired.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="async_write_response_metadata.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.async_write_response"></a><a class="link" href="async_write_response.html" title="async_write_response">async_write_response</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="async_write_response.html#reference.async_write_response.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="async_write_response.html#reference.async_write_response.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="async_write_response.html#reference.async_write_response.return_value">Return
+        value</a></span></dt>
+<dt><span class="section"><a href="async_write_response.html#reference.async_write_response.see_also">See also</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">write</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">StringRef</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">string_ref</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">ServerSocket</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">Message</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
+                                <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="identifier">async_write_response</span><span class="special">(</span><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">,</span> <span class="identifier">status_code</span> <span class="identifier">sc</span><span class="special">,</span>
+                     <span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">)</span>
+</pre>
+<p>
+        Get the integer-based and textual representation from <span class="emphasis"><em>sc</em></span>
+        and dispatch the <code class="computeroutput"><span class="identifier">async_write_response</span></code>
+        operation to <span class="emphasis"><em>socket</em></span>.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          The <code class="computeroutput"><span class="identifier">to_string</span><span class="special">(</span><span class="identifier">status_code</span><span class="special">)</span></code>
+          function is used to get the textual representation.
+        </p></td></tr>
+</table></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_write_response.template_parameters"></a><a class="link" href="async_write_response.html#reference.async_write_response.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">StringRef</span></code></span></dt>
+<dd><p>
+                A type fulfilling the requirements of the StringRef concept (i.e.
+                boost::basic_string_ref).
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ServerSocket</span></code></span></dt>
+<dd><p>
+                A type fulfilling the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
+                concept</a>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span></code></span></dt>
+<dd><p>
+                A type fulfilling the <a class="link" href="message_concept.html" title="Message"><code class="literal">Message</code>
+                concept</a>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span></code></span></dt>
+<dd><p>
+                A type fulfilling the concept of a completion token, as defined in
+                <a href="https://isocpp.org/files/papers/n4045.pdf" target="_top">N4045: Library
+                Foundations for Asynchronous Operations, Revision 2</a>.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_write_response.parameters"></a><a class="link" href="async_write_response.html#reference.async_write_response.parameters" title="Parameters">Parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span></code></span></dt>
+<dd><p>
+                The server socket used to initiate the operations.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">status_code</span> <span class="identifier">sc</span></code></span></dt>
+<dd><p>
+                A status code from which we'll extract the integer and string representations.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">Message</span>
+            <span class="special">&amp;</span><span class="identifier">message</span></code></span></dt>
+<dd><p>
+                The reply message.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span></code></span></dt>
+<dd><p>
+                The completion token used to get the handler and return value.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_write_response.return_value"></a><a class="link" href="async_write_response.html#reference.async_write_response.return_value" title="Return value">Return
+        value</a>
+</h3></div></div></div>
+<p>
+          Extracted from <span class="emphasis"><em>token</em></span>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_write_response.see_also"></a><a class="link" href="async_write_response.html#reference.async_write_response.see_also" title="See also">See also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="literal"><a class="link" href="status_code.html" title="status_code">status_code</a></code>
+            </li></ul></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>

@@ -13,9 +13,87 @@
 <div class="spirit-nav">
 <a accesskey="p" href="header_value_for_each.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="request_upgrade_desired.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.request_continue_required"></a><a class="link" href="request_continue_required.html" title="request_continue_required">request_continue_required</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="request_continue_required.html#reference.request_continue_required.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="request_continue_required.html#reference.request_continue_required.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="request_continue_required.html#reference.request_continue_required.return_value">Return
+        value</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">query</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Message</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">request_continue_required</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">message</span><span class="special">)</span>
+</pre>
+<p>
+        Check if the request represented by <span class="emphasis"><em>message</em></span> requires
+        a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span><sup>[<a name="reference.request_continue_required.f0" href="#ftn.reference.request_continue_required.f0" class="footnote">11</a>]</sup>.
+      </p>
+<p>
+        If you can properly process and reply the message without its body, you're
+        free to go. Otherwise, you should send a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span>
+        to ask for the message body from the HTTP client.
+      </p>
+<p>
+        This feature was designed to decrease network traffic, by allowing servers
+        to reject sooner messages that would be discarded anyway.
+      </p>
+<p>
+        The name <span class="emphasis"><em>required</em></span> is used instead <span class="emphasis"><em>supported</em></span>,
+        because an action from the server is required.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.request_continue_required.template_parameters"></a><a class="link" href="request_continue_required.html#reference.request_continue_required.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span></code></span></dt>
+<dd><p>
+                A type fulfilling the requirements for the <a class="link" href="message_concept.html" title="Message"><code class="literal">Message</code>
+                concept</a>.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.request_continue_required.parameters"></a><a class="link" href="request_continue_required.html#reference.request_continue_required.parameters" title="Parameters">Parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">Message</span>
+            <span class="special">&amp;</span><span class="identifier">message</span></code></span></dt>
+<dd><p>
+                The read message.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.request_continue_required.return_value"></a><a class="link" href="request_continue_required.html#reference.request_continue_required.return_value" title="Return value">Return
+        value</a>
+</h3></div></div></div>
+<p>
+          Whether the request represented by <span class="emphasis"><em>message</em></span> requires
+          a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span>.
+        </p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.reference.request_continue_required.f0" href="#reference.request_continue_required.f0" class="para">11</a>] </sup>
+          Defined in RFC 7231, section 5.1.1.
+        </p></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>

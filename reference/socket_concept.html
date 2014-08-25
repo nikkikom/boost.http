@@ -18,6 +18,7 @@
 <a name="reference.socket_concept"></a><a class="link" href="socket_concept.html" title="Socket">Socket</a>
 </h2></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="socket_concept.html#reference.socket_concept.definitions">Definitions</a></span></dt>
 <dt><span class="section"><a href="socket_concept.html#reference.socket_concept.notation">Notation</a></span></dt>
 <dt><span class="section"><a href="socket_concept.html#reference.socket_concept.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="socket_concept.html#reference.socket_concept.models">Models</a></span></dt>
@@ -29,6 +30,31 @@
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="reference.socket_concept.definitions"></a><a class="link" href="socket_concept.html#reference.socket_concept.definitions" title="Definitions">Definitions</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term">Types fulfilling the <code class="computeroutput"><span class="identifier">Socket</span></code>
+            concept and also possessing the <span class="emphasis"><em>strict</em></span> property</span></dt>
+<dd><p>
+                Instances from this type will <span class="bold"><strong>not</strong></span>
+                insert illegal characters<sup>[<a name="reference.socket_concept.definitions.f0" href="#ftn.reference.socket_concept.definitions.f0" class="footnote">14</a>]</sup> in the HTTP fields.
+              </p></dd>
+<dt><span class="term">Native stream</span></dt>
+<dd><p>
+                The message size doesn't need to be know prior to writing the response
+                message. The use of the streaming API can only be used when this
+                property holds. Buffering the body MUST <span class="bold"><strong>NOT</strong></span>
+                be done and the message parts MUST be written as soon as convenient.
+                If this property holds, the user MAY safely use the socket to transmit
+                a live video stream, for instance.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="reference.socket_concept.notation"></a><a class="link" href="socket_concept.html#reference.socket_concept.notation" title="Notation">Notation</a>
 </h3></div></div></div>
 <div class="variablelist">
@@ -36,8 +62,8 @@
 <dl>
 <dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span></code></span></dt>
 <dd><p>
-                A type fulfilling the requirements for the <code class="literal"><a class="link" href="message_concept.html" title="Message">Message
-                concept</a></code>.
+                A type fulfilling the requirements for the <a class="link" href="message_concept.html" title="Message"><code class="literal">Message</code>
+                concept</a>.
               </p></dd>
 <dt><span class="term"><code class="computeroutput"><span class="identifier">m</span></code></span></dt>
 <dd><p>
@@ -135,8 +161,8 @@
                 </td>
 <td>
                   <p>
-                    Must be a type fulfilling the <code class="literal"><a class="link" href="message_concept.html" title="Message">Message
-                    concept</a></code>.
+                    Must be a type fulfilling the <a class="link" href="message_concept.html" title="Message"><code class="literal">Message</code>
+                    concept</a>.
                   </p>
                 </td>
 <td>
@@ -213,7 +239,8 @@
                   </p>
                   <p>
                     <code class="computeroutput"><span class="identifier">m</span><span class="special">.</span><span class="identifier">body</span><span class="special">()</span></code>
-                    is left in an unspecified state while the operation is in progress.
+                    and <code class="computeroutput"><span class="identifier">m</span><span class="special">.</span><span class="identifier">trailers</span><span class="special">()</span></code>
+                    are left in an unspecified state while the operation is in progress.
                   </p>
                 </td>
 <td>
@@ -537,9 +564,9 @@
               invokes undefined behaviour.
             </li>
 <li class="listitem">
-              Types fulfilling the <code class="computeroutput"><span class="identifier">Socket</span></code>
-              concept and also possessing the <span class="emphasis"><em>strict</em></span> property
-              will <span class="bold"><strong>not</strong></span> insert illegal characters<sup>[<a name="reference.socket_concept.requirements.f0" href="#ftn.reference.socket_concept.requirements.f0" class="footnote">12</a>]</sup> in the HTTP fields.
+              Any HTTP field name received through the wire is normalized (i.e. uppercase
+              characters are converted to lowercase) before they're inserted into
+              objects of type <code class="computeroutput"><span class="identifier">Message</span><span class="special">::</span><span class="identifier">headers_type</span></code>.
             </li>
 </ol></div>
 </div>
@@ -572,10 +599,10 @@
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a name="ftn.reference.socket_concept.requirements.f0" href="#reference.socket_concept.requirements.f0" class="para">12</a>] </sup>
-                Defined in the <a class="link" href="message_concept.html#reference.message_concept.definitions" title="Definitions">Message
-                concept's <span class="quote">&#8220;<span class="quote">definitions</span>&#8221;</span> section</a>.
-              </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.reference.socket_concept.definitions.f0" href="#reference.socket_concept.definitions.f0" class="para">14</a>] </sup>
+                  Defined in the <a class="link" href="message_concept.html#reference.message_concept.definitions" title="Definitions"><code class="literal">Message</code>
+                  concept's <span class="quote">&#8220;<span class="quote">definitions</span>&#8221;</span> section</a>.
+                </p></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

@@ -17,8 +17,17 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.server_socket_concept"></a><a class="link" href="server_socket_concept.html" title="ServerSocket">ServerSocket</a>
 </h2></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="server_socket_concept.html#reference.server_socket_concept.refinement_of">Refinement
-        of</a></span></dt></dl></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="server_socket_concept.html#reference.server_socket_concept.refinement_of">Refinement
+        of</a></span></dt>
+<dt><span class="section"><a href="server_socket_concept.html#reference.server_socket_concept.definitions">Definitions</a></span></dt>
+<dt><span class="section"><a href="server_socket_concept.html#reference.server_socket_concept.notation">Notation</a></span></dt>
+<dt><span class="section"><a href="server_socket_concept.html#reference.server_socket_concept.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="server_socket_concept.html#reference.server_socket_concept.models">Models</a></span></dt>
+</dl></div>
+<p>
+        Provides operations for HTTP servers.
+      </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="reference.server_socket_concept.refinement_of"></a><a class="link" href="server_socket_concept.html#reference.server_socket_concept.refinement_of" title="Refinement of">Refinement
@@ -27,6 +36,709 @@
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <code class="literal"><a class="link" href="socket_concept.html" title="Socket">Socket</a></code>
             </li></ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_concept.definitions"></a><a class="link" href="server_socket_concept.html#reference.server_socket_concept.definitions" title="Definitions">Definitions</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term">Types fulfilling the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+            concept and also possessing the <span class="emphasis"><em>strict</em></span> property</span></dt>
+<dd><p>
+                Instances from this type will <span class="bold"><strong>not</strong></span>
+                insert illegal characters<sup>[<a name="reference.server_socket_concept.definitions.f0" href="#ftn.reference.server_socket_concept.definitions.f0" class="footnote">15</a>]</sup> in the HTTP fields.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_concept.notation"></a><a class="link" href="server_socket_concept.html#reference.server_socket_concept.notation" title="Notation">Notation</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Message</span></code></span></dt>
+<dd><p>
+                A type fulfilling the requirements for the <a class="link" href="message_concept.html" title="Message"><code class="literal">Message</code>
+                concept</a>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">m</span></code></span></dt>
+<dd><p>
+                Object of type <code class="computeroutput"><span class="identifier">Message</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">cm</span></code></span></dt>
+<dd><p>
+                Object of type <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">Message</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">CompletionToken</span></code></span></dt>
+<dd><p>
+                A type fulfilling the concept of a completion token, as defined in
+                <a href="https://isocpp.org/files/papers/n4045.pdf" target="_top">N4045: Library
+                Foundations for Asynchronous Operations, Revision 2</a>.
+              </p></dd>
+<dt><span class="term">AsyncResultType</span></dt>
+<dd><p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span>
+                <span class="identifier">CompletionToken</span><span class="special">,</span>
+                <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">token</span></code></span></dt>
+<dd><p>
+                An object of the type <code class="computeroutput"><span class="identifier">CompletionToken</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">X</span></code></span></dt>
+<dd><p>
+                A type that is a model of <code class="computeroutput"><span class="identifier">ServerSocket</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">a</span></code></span></dt>
+<dd><p>
+                Object of type <code class="computeroutput"><span class="identifier">X</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">ca</span></code></span></dt>
+<dd><p>
+                Object of type <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">X</span></code>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">sc</span></code></span></dt>
+<dd><p>
+                A value of type <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint_fast16_t</span></code>.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_concept.requirements"></a><a class="link" href="server_socket_concept.html#reference.server_socket_concept.requirements" title="Requirements">Requirements</a>
+</h3></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Expression
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Return type
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Precondition
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Semantics
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Postcondition
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">method_server_type</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+                    only supports operations involving a single type of method.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Must be a type fulfilling the requirements for the <code class="computeroutput"><span class="identifier">String</span></code> concept (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>).
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">path_server_type</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+                    only supports operations involving a single type of path.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Must be a type fulfilling the requirements for the <code class="computeroutput"><span class="identifier">String</span></code> concept (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>).
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">reason_phrase_server_type</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+                    only supports operations involving a single type of reason phrase.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Must be a type fulfilling the requirements for the <code class="computeroutput"><span class="identifier">StringRef</span></code> concept (i.e. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">basic_string_ref</span></code>).
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ca</span><span class="special">.</span><span class="identifier">write_response_native_stream</span><span class="special">()</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bool
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">()</span>
+                    <span class="special">!=</span> <span class="identifier">read_state</span><span class="special">::</span><span class="identifier">empty</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Returns whether the current message exchange supports native
+                    stream.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The same value and property is maintained until the end of the
+                    current message exchange.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">method</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    Object of method type supported by <code class="computeroutput"><span class="identifier">X</span></code>
+                    (i.e. <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">method_server_type</span></code> if only
+                    one method type is supported or any type fulfilling the requirements
+                    of the <code class="computeroutput"><span class="identifier">String</span></code>
+                    concept (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>)
+                    otherwise).
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">path</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    Object of path type supported by <code class="computeroutput"><span class="identifier">X</span></code>
+                    (i.e. <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">path_server_type</span></code> if only one
+                    path type is supported or any type fulfilling the requirements
+                    of the <code class="computeroutput"><span class="identifier">String</span></code>
+                    concept (i.e. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>)
+                    otherwise).
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">reason_phrase</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    Const object of reason phrase type supported by <code class="computeroutput"><span class="identifier">X</span></code> (i.e. <code class="computeroutput"><span class="identifier">X</span><span class="special">::</span><span class="identifier">reason_phrase_server_type</span></code>
+                    if only one reason phrase type is supported or any type fulfilling
+                    the requirements of the <code class="computeroutput"><span class="identifier">StringRef</span></code>
+                    concept (i.e. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">basic_string_ref</span></code>)
+                    otherwise).
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">async_read_request</span><span class="special">(</span><span class="identifier">method</span><span class="special">,</span>
+                    <span class="identifier">path</span><span class="special">,</span>
+                    <span class="identifier">m</span><span class="special">,</span>
+                    <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">()</span>
+                    <span class="special">==</span> <span class="identifier">read_state</span><span class="special">::</span><span class="identifier">empty</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Initiate an asynchronous operation to read enough of the message
+                    to apply the request to a target resource (i.e. request line
+                    plus the header section). Handler is called when the operation
+                    completes with an appropriate parameter.
+                  </p>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">method</span></code>, <code class="computeroutput"><span class="identifier">path</span></code> and <code class="computeroutput"><span class="identifier">m</span></code>
+                    are left in a unspecified state while the operation is in progress.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    By the time the handler is called, <code class="computeroutput"><span class="identifier">method</span></code>
+                    value represents the read method, <code class="computeroutput"><span class="identifier">path</span></code>
+                    represents the read url and all headers for the current request
+                    are inserted into <code class="computeroutput"><span class="identifier">m</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>, if no error happened.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">async_read_request</span><span class="special">(</span><span class="identifier">method</span><span class="special">,</span>
+                    <span class="identifier">path</span><span class="special">,</span>
+                    <span class="identifier">m</span><span class="special">,</span>
+                    <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">read_state</span><span class="special">()</span>
+                    <span class="special">!=</span> <span class="identifier">read_state</span><span class="special">::</span><span class="identifier">empty</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    No actions are done and the handler from the completion token
+                    is called with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span>
+                    <span class="special">{</span><span class="identifier">http_errc</span><span class="special">::</span><span class="identifier">out_of_order</span><span class="special">}</span></code>.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">async_write_response</span><span class="special">(</span><span class="identifier">sc</span><span class="special">,</span>
+                    <span class="identifier">reason_phrase</span><span class="special">,</span>
+                    <span class="identifier">cm</span><span class="special">,</span>
+                    <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">==</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span>
+                    <span class="special">||</span> <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span> <span class="special">==</span>
+                    <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">continue_issued</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Initiate an asynchronous operation to write the response message.
+                    Handler is called when the operation completes with an appropriate
+                    parameter.
+                  </p>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">reason_phrase</span></code>
+                    and <code class="computeroutput"><span class="identifier">cm</span></code> MUST
+                    <span class="bold"><strong>NOT</strong></span> be modified while the operation
+                    is in progress.
+                  </p>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                        <span class="special">==</span> <span class="identifier">write_state</span>
+                        <span class="special">::</span><span class="identifier">finished</span></code>
+                      </li>
+<li class="listitem">
+                        By the time the handler is called, the <code class="computeroutput"><span class="identifier">cm</span></code>
+                        message is considered delivered, if no error happened.
+                      </li>
+</ul></div>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">async_write_response</span><span class="special">(</span><span class="identifier">sc</span><span class="special">,</span>
+                    <span class="identifier">reason_phrase</span><span class="special">,</span>
+                    <span class="identifier">cm</span><span class="special">,</span>
+                    <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">!=</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span>
+                    <span class="special">&amp;&amp;</span> <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span> <span class="special">!=</span>
+                    <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">continue_issued</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    No actions are done and the handler from the completion token
+                    is called with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span>
+                    <span class="special">{</span><span class="identifier">http_errc</span><span class="special">::</span><span class="identifier">out_of_order</span><span class="special">}</span></code>.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">async_write_response_continue</span> <span class="special">(</span><span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">==</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Initiate an asynchronous operation to write a response with the
+                    semantics from a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span><sup>[<a name="reference.server_socket_concept.requirements.f0" href="#ftn.reference.server_socket_concept.requirements.f0" class="footnote">a</a>]</sup>. Handler is called when the operation completes with
+                    an appropriate parameter.
+                  </p>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                        <span class="special">==</span> <span class="identifier">write_state</span>
+                        <span class="special">::</span><span class="identifier">continue_issued</span></code>
+                      </li>
+<li class="listitem">
+                        By the time the handler is called, the <span class="quote">&#8220;<span class="quote">100 (Continue)
+                        response</span>&#8221;</span> is considered delivered.
+                      </li>
+</ul></div>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">async_write_response_continue</span> <span class="special">(</span><span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">!=</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    No actions are done and the handler from the completion token
+                    is called with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span>
+                    <span class="special">{</span><span class="identifier">http_errc</span><span class="special">::</span><span class="identifier">out_of_order</span><span class="special">}</span></code>.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span> <span class="special">.</span><span class="identifier">async_write_response_metadata</span><span class="special">(</span><span class="identifier">sc</span><span class="special">,</span> <span class="identifier">reason_phrase</span><span class="special">,</span> <span class="identifier">cm</span><span class="special">,</span> <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="special">(</span><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span> <span class="special">==</span>
+                    <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span> <span class="special">||</span>
+                    <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">==</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">continue_issued</span><span class="special">)</span> <span class="special">&amp;&amp;</span>
+                    <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_response_native_stream</span><span class="special">()</span> <span class="special">==</span>
+                    <span class="keyword">true</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Initiate an asynchronous operation to write the response metadata
+                    (status line plus header section). Handler is called when the
+                    operation completes with an appropriate parameter.
+                  </p>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">reason_phrase</span></code>
+                    and <code class="computeroutput"><span class="identifier">cm</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>
+                    MUST <span class="bold"><strong>NOT</strong></span> be modified while the
+                    operation is in progress.
+                  </p>
+                </td>
+<td>
+                  <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                        <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                        <span class="special">==</span> <span class="identifier">write_state</span>
+                        <span class="special">::</span><span class="identifier">metadata_issued</span></code>
+                      </li>
+<li class="listitem">
+                        By the time the handler is called, the response metadata
+                        (i.e. <code class="computeroutput"><span class="identifier">sc</span></code>,
+                        <code class="computeroutput"><span class="identifier">reason_phrase</span></code>
+                        and <code class="computeroutput"><span class="identifier">cm</span><span class="special">.</span><span class="identifier">headers</span><span class="special">()</span></code>)
+                        is considered delivered, if no error happened.
+                      </li>
+</ul></div>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span> <span class="special">.</span><span class="identifier">async_write_response_metadata</span><span class="special">(</span><span class="identifier">sc</span><span class="special">,</span> <span class="identifier">reason_phrase</span><span class="special">,</span> <span class="identifier">cm</span><span class="special">,</span> <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">!=</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span>
+                    <span class="special">&amp;&amp;</span> <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span> <span class="special">!=</span>
+                    <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">continue_issued</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    No actions are done and the handler from the completion token
+                    is called with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span>
+                    <span class="special">{</span><span class="identifier">http_errc</span><span class="special">::</span><span class="identifier">out_of_order</span><span class="special">}</span></code><sup>[<a name="reference.server_socket_concept.requirements.f1" href="#ftn.reference.server_socket_concept.requirements.f1" class="footnote">b</a>]</sup>.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">a</span> <span class="special">.</span><span class="identifier">async_write_response_metadata</span><span class="special">(</span><span class="identifier">sc</span><span class="special">,</span> <span class="identifier">reason_phrase</span><span class="special">,</span> <span class="identifier">cm</span><span class="special">,</span> <span class="identifier">token</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">AsyncResultType</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="special">(</span><span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span> <span class="special">==</span>
+                    <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">empty</span> <span class="special">||</span>
+                    <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">()</span>
+                    <span class="special">==</span> <span class="identifier">write_state</span><span class="special">::</span><span class="identifier">continue_issued</span><span class="special">)</span> <span class="special">&amp;&amp;</span>
+                    <span class="identifier">a</span><span class="special">.</span><span class="identifier">write_response_native_stream</span><span class="special">()</span> <span class="special">==</span>
+                    <span class="keyword">false</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    No actions are done and the handler from the completion token
+                    is called with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span>
+                    <span class="special">{</span><span class="identifier">http_errc</span>
+                    <span class="special">::</span><span class="identifier">native_stream_unsupported</span><span class="special">}</span></code>.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+</tbody>
+<tbody class="footnotes"><tr><td colspan="5">
+<div class="footnote"><p><sup>[<a name="ftn.reference.server_socket_concept.requirements.f0" href="#reference.server_socket_concept.requirements.f0" class="para">a</a>] </sup>
+                      Defined in RFC 7231, section 5.1.1.
+                    </p></div>
+<div class="footnote"><p><sup>[<a name="ftn.reference.server_socket_concept.requirements.f1" href="#reference.server_socket_concept.requirements.f1" class="para">b</a>] </sup>
+                      The notification of the error <code class="computeroutput"><span class="identifier">http_errc</span><span class="special">::</span><span class="identifier">out_of_order</span></code>
+                      has priority over <code class="computeroutput"><span class="identifier">http_errc</span><span class="special">::</span><span class="identifier">native_stream_unsupported</span></code>
+                      because these errors present a programming logic error that
+                      always will happen (i.e. they aren't tied to specific runtime
+                      behaviour). If they aren't fixed, the program won't work either
+                      way.
+                    </p></div>
+</td></tr></tbody>
+</table></div>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+              Failing to comply with the <span class="quote">&#8220;<span class="quote">MUST</span>&#8221;</span> and <span class="quote">&#8220;<span class="quote">MUST <span class="bold"><strong>NOT</strong></span></span>&#8221;</span> conditions described previously
+              invokes undefined behaviour.
+            </li>
+<li class="listitem">
+              Any HTTP field name received through the wire is normalized (i.e. uppercase
+              characters are converted to lowercase) before they're inserted into
+              objects of type <code class="computeroutput"><span class="identifier">Message</span><span class="special">::</span><span class="identifier">headers_type</span></code>.
+            </li>
+<li class="listitem">
+<p class="simpara">
+              If the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              reads a message that expects a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span>,
+              it MUST insert the <code class="computeroutput"><span class="string">"expect: 100-continue"</span></code>
+              header and only one element with the HTTP field name <code class="computeroutput"><span class="string">"expect"</span></code> MUST be present.
+            </p>
+<p class="simpara">
+              This behaviour is intended for the communication between the user of
+              this library and the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and can differ from the communication between the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and the underlying channel.
+            </p>
+</li>
+<li class="listitem">
+<p class="simpara">
+              If the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              reads a message that does <span class="bold"><strong>NOT</strong></span> expect
+              a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span>, it MUST erase all the <code class="computeroutput"><span class="string">"expect: 100-continue"</span></code> headers.
+            </p>
+<p class="simpara">
+              This behaviour is intended for the communication between the user of
+              this library and the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and can differ from the communication between the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and the underlying channel.
+            </p>
+</li>
+<li class="listitem">
+<p class="simpara">
+              If the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              reads a message that represent a desire from the HTTP client to initiate
+              a protocol upgrade, the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              supports a protocol upgrade and it'll communicate the client desire
+              to the user of this library, it MUST communicate the desire by inserting
+              the <code class="computeroutput"><span class="string">"upgrade"</span></code>
+              (case-insensitive) HTTP field value into one of the <code class="computeroutput"><span class="string">"connection"</span></code>
+              headers. The <code class="computeroutput"><span class="string">"upgrade"</span></code>
+              value MUST <span class="bold"><strong>NOT</strong></span> be present otherwise.
+              Note that the <code class="computeroutput"><span class="string">"connection"</span></code>
+              HTTP field value allow comma-separated list of values.
+            </p>
+<p class="simpara">
+              This behaviour is intended for the communication between the user of
+              this library and the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and can differ from the communication between the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and the underlying channel.
+            </p>
+</li>
+</ol></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.server_socket_concept.models"></a><a class="link" href="server_socket_concept.html#reference.server_socket_concept.models" title="Models">Models</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="literal"><a class="link" href="basic_socket.html" title="basic_socket">basic_socket</a></code>
+            </li>
+<li class="listitem">
+              <code class="literal"><a class="link" href="polymorphic_server_socket.html" title="polymorphic_server_socket">polymorphic_server_socket</a></code>
+            </li>
+<li class="listitem">
+              <code class="literal"><a class="link" href="server_socket_adaptor.html" title="server_socket_adaptor">server_socket_adaptor</a></code>
+            </li>
+</ul></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.reference.server_socket_concept.definitions.f0" href="#reference.server_socket_concept.definitions.f0" class="para">15</a>] </sup>
+                  Defined in the <a class="link" href="message_concept.html#reference.message_concept.definitions" title="Definitions"><code class="literal">Message</code>
+                  concept's <span class="quote">&#8220;<span class="quote">definitions</span>&#8221;</span> section</a>.
+                </p></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
