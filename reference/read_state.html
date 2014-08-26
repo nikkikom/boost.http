@@ -13,9 +13,130 @@
 <div class="spirit-nav">
 <a accesskey="p" href="async_response_transmit_dir.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="write_state.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.read_state"></a><a class="link" href="read_state.html" title="read_state">read_state</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="read_state.html#reference.read_state.member_constants">Member constants</a></span></dt>
+<dt><span class="section"><a href="read_state.html#reference.read_state.see_also">See also</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">read_state</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">read_state</span>
+</pre>
+<p>
+        Represents the current state in the HTTP incoming request or HTTP incoming
+        response.
+      </p>
+<p>
+        Be prepared to face multiple state changes after a single action is scheduled
+        (e.g. you issue <code class="computeroutput"><span class="identifier">receive_message</span></code>
+        action and the state already changed to empty when the handler is invoked).
+        However, the message producer (e.g. the embedded server) is not allowed to
+        change the state from <code class="computeroutput"><span class="identifier">empty</span></code>
+        to <code class="computeroutput"><span class="identifier">request_ready</span></code> without
+        another iteraction from the library user.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.read_state.member_constants"></a><a class="link" href="read_state.html#reference.read_state.member_constants" title="Member constants">Member constants</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">empty</span></code></span></dt>
+<dd>
+<p>
+                This is the initial state.
+              </p>
+<p>
+                There are two ways to interpret this state. It might mean that the
+                request object wasn't used/read yet.
+              </p>
+<p>
+                Another interpretation is that it was reached from the <code class="computeroutput"><span class="identifier">body_ready</span></code> state, after all trailers
+                have been received. It's safe to assume that all message data is
+                available if this is the case.
+              </p>
+<p>
+                An easy to interpret this state is that it is complete for the previous
+                message and empty for the next one.
+              </p>
+<p>
+                At this state, you can only issue a <code class="computeroutput"><span class="identifier">receive_message</span></code>
+                action.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">message_ready</span></code></span></dt>
+<dd>
+<p>
+                This state is reached from the <code class="computeroutput"><span class="identifier">empty</span></code>
+                state, once you ask for a new request.
+              </p>
+<p>
+                No more <code class="computeroutput"><span class="identifier">receive_message</span></code>
+                actions can be issued from this state.
+              </p>
+<p>
+                From this state, you can issue the <code class="computeroutput"><span class="identifier">receive_some_body</span></code>
+                action. The state will change to <code class="computeroutput"><span class="identifier">body_ready</span></code>
+                once all body was read. In streaming connections (e.g. HTTP/1.1 chunked
+                entities), this condition (body fully received) might never happen.
+              </p>
+<p>
+                Once this state is reached, you can safely read the first line and
+                the headers.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">body_ready</span></code></span></dt>
+<dd>
+<p>
+                This state is reached from the <code class="computeroutput"><span class="identifier">request_ready</span></code>,
+                once the http producer (e.g. embedded server) fully received the
+                message body.
+              </p>
+<p>
+                From this state, you can only issue the <code class="computeroutput"><span class="identifier">receive_trailers</span></code>
+                action.
+              </p>
+<p>
+                Once this state is reached, you can safely assume that no more body
+                parts will be received.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">finished</span></code></span></dt>
+<dd>
+<p>
+                Only possible in incoming response mode. It means the message is
+                complete and you can no longer issue another <code class="computeroutput"><span class="identifier">receive_message</span></code>
+                until something else is done (e.g. send another http request). This
+                is a different/special value, because the "something else to
+                do" might not be related to read actions.
+              </p>
+<p>
+                It can be reached from <code class="computeroutput"><span class="identifier">body_ready</span></code>
+                state, after all trailers have been received. It's safe to assume
+                that all message data is available at the time this state is reached.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.read_state.see_also"></a><a class="link" href="read_state.html#reference.read_state.see_also" title="See also">See also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="literal"><a class="link" href="write_state.html" title="write_state">write_state</a></code>
+            </li>
+<li class="listitem">
+              <code class="literal"><a class="link" href="socket_concept.html" title="Socket">Socket</a></code>
+            </li>
+</ul></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>

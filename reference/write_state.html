@@ -13,9 +13,105 @@
 <div class="spirit-nav">
 <a accesskey="p" href="read_state.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="status_code.html"><img src="../images/next.png" alt="Next"></a>
 </div>
-<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.write_state"></a><a class="link" href="write_state.html" title="write_state">write_state</a>
-</h2></div></div></div></div>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="write_state.html#reference.write_state.member_constants">Member constants</a></span></dt>
+<dt><span class="section"><a href="write_state.html#reference.write_state.see_also">See also</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">write_state</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="identifier">write_state</span>
+</pre>
+<p>
+        Represents the current state in the HTTP outgoing response or HTTP outgoing
+        request.
+      </p>
+<p>
+        It has extra values that won't be used in "outgoing-request" mode.
+        Explanation focuses in "outgoing-response" mode.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.write_state.member_constants"></a><a class="link" href="write_state.html#reference.write_state.member_constants" title="Member constants">Member constants</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">empty</span></code></span></dt>
+<dd>
+<p>
+                This is the initial state.
+              </p>
+<p>
+                It means that the response object wasn't used yet.
+              </p>
+<p>
+                At this state, you can only issue the metadata or issue a continue
+                action, if continue is supported/used in this HTTP session. Even
+                if continue was requested, issue a continue action is optional and
+                only required if you need the request's body.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">continue_issued</span></code></span></dt>
+<dd>
+<p>
+                This state is reached from the <code class="computeroutput"><span class="identifier">empty</span></code>
+                state, once you issue a continue action.
+              </p>
+<p>
+                No more continue actions can be issued from this state.
+              </p>
+<p>
+                Only makes sense in server mode, when issuing an outgoing response.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">metadata_issued</span></code></span></dt>
+<dd>
+<p>
+                This state can be reached either from <code class="computeroutput"><span class="identifier">empty</span></code>
+                or <code class="computeroutput"><span class="identifier">continue_issued</span></code>.
+              </p>
+<p>
+                It happens when the metadata (start line + header section) is reached
+                (through <code class="computeroutput"><span class="identifier">write_metadata</span></code>).
+              </p>
+<p>
+                From this state, you can only issue the body, the trailers or the
+                end of the message.
+              </p>
+</dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">finished</span></code></span></dt>
+<dd>
+<p>
+                The message is considered complete once this state is reached.
+              </p>
+<p>
+                You can no longer issue anything once this state is reached. The
+                underlying channel will change the outgoing_state once some unspecified
+                event occurs. This event is usually a new request in server mode
+                or the response fully received in client mode.
+              </p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.write_state.see_also"></a><a class="link" href="write_state.html#reference.write_state.see_also" title="See also">See also</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="literal"><a class="link" href="read_state.html" title="read_state">read_state</a></code>
+            </li>
+<li class="listitem">
+              <code class="literal"><a class="link" href="socket_concept.html" title="Socket">Socket</a></code>
+            </li>
+</ul></div>
+</div>
+</div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
