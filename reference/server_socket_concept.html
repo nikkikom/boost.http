@@ -715,6 +715,20 @@
               and the underlying channel.
             </p>
 </li>
+<li class="listitem">
+<p class="simpara">
+              If the <code class="computeroutput"><span class="string">"content-length"</span></code>
+              header is provided to <code class="computeroutput"><span class="identifier">async_write_response</span></code>,
+              then the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              MUST ignore the message body (i.e. there is no data payload in the
+              reply message) and SHOULD use the user-provided header.
+            </p>
+<p class="simpara">
+              The <code class="computeroutput"><span class="identifier">ServerSocket</span></code> MUST
+              adopt a behaviour that is compatible with the behaviour defined in
+              the section 3.3.2 of the RFC 7230.
+            </p>
+</li>
 </ol></div>
 </div>
 <div class="section">

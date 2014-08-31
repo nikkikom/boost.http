@@ -568,6 +568,18 @@
               characters are converted to lowercase) before they're inserted into
               objects of type <code class="computeroutput"><span class="identifier">Message</span><span class="special">::</span><span class="identifier">headers_type</span></code>.
             </li>
+<li class="listitem">
+              The <code class="computeroutput"><span class="identifier">Socket</span></code> object has
+              the freedom to store information required to further process the incoming
+              message in the user-provided <code class="computeroutput"><span class="identifier">message</span></code>
+              object. Thus, the library user MUST <span class="bold"><strong>NOT</strong></span>
+              use different <code class="computeroutput"><span class="identifier">message</span></code>
+              objects in the functions that initiate <span class="bold"><strong>read</strong></span>
+              operations, in the context of the <span class="bold"><strong>same</strong></span>
+              message exchange (i.e. the user can use a different <code class="computeroutput"><span class="identifier">message</span></code>
+              object to receive a different message). This requirement is extended
+              to refinements of this concept.
+            </li>
 </ol></div>
 </div>
 <div class="section">
