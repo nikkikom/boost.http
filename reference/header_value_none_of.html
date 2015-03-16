@@ -1,37 +1,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>header_value_any_of</title>
+<title>header_value_none_of</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Http">
 <link rel="up" href="../reference.html" title="Chapter&#160;4.&#160;Reference">
-<link rel="prev" href="header_value_all_of.html" title="header_value_all_of">
-<link rel="next" href="header_value_none_of.html" title="header_value_none_of">
+<link rel="prev" href="header_value_any_of.html" title="header_value_any_of">
+<link rel="next" href="header_value_for_each.html" title="header_value_for_each">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="header_value_all_of.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_value_none_of.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="header_value_any_of.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_value_for_each.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="reference.header_value_any_of"></a><a class="link" href="header_value_any_of.html" title="header_value_any_of">header_value_any_of</a>
+<a name="reference.header_value_none_of"></a><a class="link" href="header_value_none_of.html" title="header_value_none_of">header_value_none_of</a>
 </h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="header_value_any_of.html#reference.header_value_any_of.template_parameters">Template
+<dt><span class="section"><a href="header_value_none_of.html#reference.header_value_none_of.template_parameters">Template
         parameters</a></span></dt>
-<dt><span class="section"><a href="header_value_any_of.html#reference.header_value_any_of.parameters">Parameters</a></span></dt>
-<dt><span class="section"><a href="header_value_any_of.html#reference.header_value_any_of.return_value">Return
+<dt><span class="section"><a href="header_value_none_of.html#reference.header_value_none_of.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="header_value_none_of.html#reference.header_value_none_of.return_value">Return
         value</a></span></dt>
 </dl></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">header</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">StringRef</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Predicate</span><span class="special">&gt;</span>
-<span class="keyword">bool</span> <span class="identifier">header_value_any_of</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">StringRef</span> <span class="special">&amp;</span><span class="identifier">header_value</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Predicate</span> <span class="special">&amp;</span><span class="identifier">p</span><span class="special">)</span>
+<span class="keyword">bool</span> <span class="identifier">header_value_none_of</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">StringRef</span> <span class="special">&amp;</span><span class="identifier">header_value</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Predicate</span> <span class="special">&amp;</span><span class="identifier">p</span><span class="special">)</span>
 </pre>
 <p>
         Checks if unary predicate <span class="emphasis"><em>p</em></span> returns <code class="computeroutput"><span class="keyword">true</span></code>
-        for at least one element from the comma-separated list defined by the <span class="emphasis"><em>header_value</em></span>
+        for no elements from the comma-separated list defined by the <span class="emphasis"><em>header_value</em></span>
         HTTP field value.
       </p>
 <div class="note"><table border="0" summary="Note">
@@ -48,7 +48,7 @@
 </table></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="reference.header_value_any_of.template_parameters"></a><a class="link" href="header_value_any_of.html#reference.header_value_any_of.template_parameters" title="Template parameters">Template
+<a name="reference.header_value_none_of.template_parameters"></a><a class="link" href="header_value_none_of.html#reference.header_value_none_of.template_parameters" title="Template parameters">Template
         parameters</a>
 </h3></div></div></div>
 <div class="variablelist">
@@ -72,7 +72,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="reference.header_value_any_of.parameters"></a><a class="link" href="header_value_any_of.html#reference.header_value_any_of.parameters" title="Parameters">Parameters</a>
+<a name="reference.header_value_none_of.parameters"></a><a class="link" href="header_value_none_of.html#reference.header_value_none_of.parameters" title="Parameters">Parameters</a>
 </h3></div></div></div>
 <div class="variablelist">
 <p class="title"><b></b></p>
@@ -99,14 +99,14 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="reference.header_value_any_of.return_value"></a><a class="link" href="header_value_any_of.html#reference.header_value_any_of.return_value" title="Return value">Return
+<a name="reference.header_value_none_of.return_value"></a><a class="link" href="header_value_none_of.html#reference.header_value_none_of.return_value" title="Return value">Return
         value</a>
 </h3></div></div></div>
 <p>
-          <code class="computeroutput"><span class="keyword">true</span></code> if the <span class="emphasis"><em>p</em></span>
-          returns <code class="computeroutput"><span class="keyword">true</span></code> for at least
-          one element from the list and <code class="computeroutput"><span class="keyword">false</span></code>
-          otherwise. This also means that you'll get the return value <code class="computeroutput"><span class="keyword">false</span></code> for empty lists.
+          <code class="computeroutput"><span class="keyword">true</span></code> if <span class="emphasis"><em>p</em></span>
+          doesn't returns <code class="computeroutput"><span class="keyword">true</span></code> for any
+          element from the list and <code class="computeroutput"><span class="keyword">false</span></code>
+          otherwise. This also means that you'll get the return value <code class="computeroutput"><span class="keyword">true</span></code> for empty lists.
         </p>
 </div>
 </div>
@@ -120,7 +120,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="header_value_all_of.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_value_none_of.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="header_value_any_of.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="header_value_for_each.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

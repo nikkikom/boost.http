@@ -18,6 +18,7 @@
 <a name="reference.async_response_transmit_file"></a><a class="link" href="async_response_transmit_file.html" title="async_response_transmit_file">async_response_transmit_file</a>
 </h2></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.etag">ETags</a></span></dt>
 <dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.template_parameters">Template
         parameters</a></span></dt>
 <dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.parameters">Parameters</a></span></dt>
@@ -45,8 +46,8 @@
     <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span>
                                 <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
 <span class="identifier">async_response_transmit_file</span><span class="special">(</span><span class="identifier">ServerSocket</span> <span class="special">&amp;</span><span class="identifier">socket</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">imessage</span><span class="special">,</span>
-                             <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span> <span class="keyword">const</span>
-                             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span><span class="special">,</span>
+                             <span class="identifier">Message</span> <span class="special">&amp;</span><span class="identifier">omessage</span><span class="special">,</span>
+                             <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="identifier">file</span><span class="special">,</span>
                              <span class="keyword">bool</span> <span class="identifier">is_head_request</span><span class="special">,</span>
                              <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">);</span> <span class="comment">// (2)</span>
 </pre>
@@ -85,6 +86,10 @@
           </li>
 <li class="listitem">
             <span class="bold"><strong>Optional</strong></span>: MIME detection (the <code class="computeroutput"><span class="string">"content-type"</span></code> header).
+          </li>
+<li class="listitem">
+            <span class="bold"><strong>Optional</strong></span>: <code class="computeroutput"><span class="identifier">ETag</span></code>
+            detection (see <a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.etag" title="ETags">below</a>).
           </li>
 </ul></div>
 <p>
@@ -218,6 +223,162 @@
 </table></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="reference.async_response_transmit_file.etag"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.etag" title="ETags">ETags</a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.etag.strong_validators">Strong
+          validators</a></span></dt>
+<dt><span class="section"><a href="async_response_transmit_file.html#reference.async_response_transmit_file.etag.weak_validators">Weak
+          validators</a></span></dt>
+</dl></div>
+<p>
+          An ETag is a string that identify a representation of a resource. The ETag
+          can be used to perform conditional requests more robust than the ones done
+          with dates (limited by HTTP to second-based precision). In the conditional
+          request context, an etag is a validator.
+        </p>
+<p>
+          If you want to make use of the ETag implementation, just set the <code class="computeroutput"><span class="string">"etag"</span></code> header in the <code class="computeroutput"><span class="identifier">omessage</span></code> object to the appropriate value,
+          as described below (also described in more details in RFC7232).
+        </p>
+<p>
+          The first decision you must do if you decide to provide an etag is if you're
+          going to provide a strong validator or a weak validator.
+        </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="reference.async_response_transmit_file.etag.strong_validators"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.etag.strong_validators" title="Strong validators">Strong
+          validators</a>
+</h4></div></div></div>
+<p>
+            A strong validator changes whenever a change occurs to the representation
+            data that would be observable in the payload body. A strong validator
+            is unique across all versions of all representations associated with
+            a particular resource over time.
+          </p>
+<p>
+            A strong etag has the form (specified in Augmented Backus-Naur Form (ABNF)
+            notation of [RFC5234]):
+          </p>
+<pre class="programlisting">strong-etag = DQUOTE *etagc DQUOTE
+etagc       = %x21 / %x23-7E / obs-text
+            ; VCHAR except double quotes, plus obs-text
+obs-text    = %x80-FF
+</pre>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              Some recipients might perform backslash unescaping. Therefore, it is
+              a good practice to avoid backslash characters.
+            </p></td></tr>
+</table></div>
+<p>
+            Some examples:
+          </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                <code class="literal">"xyasdzzy"</code>
+              </li>
+<li class="listitem">
+                <code class="literal">"xyz9czy"</code>
+              </li>
+<li class="listitem">
+                <code class="literal">""</code>
+              </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              A strong validator might change for reasons other than a change to
+              the representation data.
+            </p></td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              There is no implication of uniqueness across representations of different
+              resources.
+            </p></td></tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="reference.async_response_transmit_file.etag.weak_validators"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.etag.weak_validators" title="Weak validators">Weak
+          validators</a>
+</h4></div></div></div>
+<p>
+            A weak validator might not change for every change to the representation
+            data.
+          </p>
+<p>
+            A weak etag has the form (specified in Augmented Backus-Naur Form (ABNF)
+            notation of [RFC5234]):
+          </p>
+<pre class="programlisting">weak-etag  = weak opaque-tag
+weak       = %x57.2F ; "W/", case-sensitive
+opaque-tag = DQUOTE *etagc DQUOTE
+etagc      = %x21 / %x23-7E / obs-text
+           ; VCHAR except double quotes, plus obs-text
+obs-text   = %x80-FF
+</pre>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              Some recipients might perform backslash unescaping. Therefore, it is
+              a good practice to avoid backslash characters.
+            </p></td></tr>
+</table></div>
+<p>
+            Some examples:
+          </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                <code class="literal">W/"xyasdzzy"</code>
+              </li>
+<li class="listitem">
+                <code class="literal">W/"xyz9czy"</code>
+              </li>
+<li class="listitem">
+                <code class="literal">W/""</code>
+              </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              An HTTP-date is usually a weak validator and it will be used if you
+              don't provide an etag.
+            </p></td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              An origin server SHOULD change a weak entity-tag whenever it considers
+              prior representations to be unacceptable as a substitute for the current
+              representation.
+            </p></td></tr>
+</table></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="reference.async_response_transmit_file.template_parameters"></a><a class="link" href="async_response_transmit_file.html#reference.async_response_transmit_file.template_parameters" title="Template parameters">Template
         parameters</a>
 </h3></div></div></div>
@@ -257,7 +418,7 @@
 </ul></div>
 <p>
                   These extra requirements are posed because file APIs are defined
-                  in terms of buffer<sup>[<a name="reference.async_response_transmit_file.template_parameters.f0" href="#ftn.reference.async_response_transmit_file.template_parameters.f0" class="footnote">12</a>]</sup> operations.
+                  in terms of buffer<sup>[<a name="reference.async_response_transmit_file.template_parameters.f0" href="#ftn.reference.async_response_transmit_file.template_parameters.f0" class="footnote">14</a>]</sup> operations.
                 </p>
 </td></tr>
 </table></div>
@@ -385,7 +546,7 @@
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a name="ftn.reference.async_response_transmit_file.template_parameters.f0" href="#reference.async_response_transmit_file.template_parameters.f0" class="para">12</a>] </sup>
+<div class="footnote"><p><sup>[<a name="ftn.reference.async_response_transmit_file.template_parameters.f0" href="#reference.async_response_transmit_file.template_parameters.f0" class="para">14</a>] </sup>
                     objects with contiguous storage of bytes.
                   </p></div>
 </div>
