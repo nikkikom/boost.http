@@ -669,6 +669,20 @@
             </li>
 <li class="listitem">
 <p class="simpara">
+              If the user pass a <code class="computeroutput"><span class="string">"connection: close"</span></code>
+              header on the message object passed as argument to the <code class="computeroutput"><span class="identifier">async_write_response</span></code> or <code class="computeroutput"><span class="identifier">async_write_response_metadata</span></code> member-functions
+              and no errors arose during the delivery of the message, the <code class="computeroutput"><span class="identifier">ServerSocket</span></code> MUST call the handler
+              with <code class="literal"><a class="link" href="http_errc.html" title="http_errc">http_errc::stream_finished</a></code>.
+            </p>
+<p class="simpara">
+              This behaviour is intended for the communication between the user of
+              this library and the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and can differ from the communication between the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
+              and the underlying channel.
+            </p>
+</li>
+<li class="listitem">
+<p class="simpara">
               If the <code class="computeroutput"><span class="identifier">ServerSocket</span></code>
               reads a message that expects a <span class="quote">&#8220;<span class="quote">100 (Continue) response</span>&#8221;</span>,
               it MUST insert the <code class="computeroutput"><span class="string">"expect: 100-continue"</span></code>
