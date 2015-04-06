@@ -56,7 +56,7 @@
 <th align="left">Warning</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-          This tutorial assumes you're already familiar with HTTP<sup>[<a name="tutorial.tutorial.f0" href="#ftn.tutorial.tutorial.f0" class="footnote">8</a>]</sup>!
+          This tutorial assumes you're already familiar with HTTP<sup>[<a name="tutorial.tutorial.f0" href="#ftn.tutorial.tutorial.f0" class="footnote">9</a>]</sup>!
         </p></td></tr>
 </table></div>
 <div class="warning"><table border="0" summary="Warning">
@@ -139,7 +139,7 @@
                      <span class="special">&lt;&lt;</span> <span class="identifier">message</span><span class="special">.</span><span class="identifier">headers</span><span class="special">().</span><span class="identifier">find</span><span class="special">(</span><span class="string">"host"</span><span class="special">)-&gt;</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
 
                 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Write state = "</span> <span class="special">&lt;&lt;</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">())</span>
-                <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+                          <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
                 <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to send a reply"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
 
@@ -322,7 +322,7 @@
 <p>
           A request is considered ready and, in sequence, dispatched to the user,
           when the start line and the complete header section (all headers) are received.
-          A request cannot be properly handled before this stage<sup>[<a name="tutorial.tutorial.receiving_request_messages.f0" href="#ftn.tutorial.tutorial.receiving_request_messages.f0" class="footnote">9</a>]</sup>. Pieces of the body, in contrast, are delivered/dispatched
+          A request cannot be properly handled before this stage<sup>[<a name="tutorial.tutorial.receiving_request_messages.f0" href="#ftn.tutorial.tutorial.receiving_request_messages.f0" class="footnote">10</a>]</sup>. Pieces of the body, in contrast, are delivered/dispatched
           as they're available.
         </p>
 <div class="note"><table border="0" summary="Note">
@@ -449,11 +449,11 @@
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a name="ftn.tutorial.tutorial.f0" href="#tutorial.tutorial.f0" class="para">8</a>] </sup>
+<div class="footnote"><p><sup>[<a name="ftn.tutorial.tutorial.f0" href="#tutorial.tutorial.f0" class="para">9</a>] </sup>
             I plan to extend this tutorial to include a small and fast introduction
             later on
           </p></div>
-<div class="footnote"><p><sup>[<a name="ftn.tutorial.tutorial.receiving_request_messages.f0" href="#tutorial.tutorial.receiving_request_messages.f0" class="para">9</a>] </sup>
+<div class="footnote"><p><sup>[<a name="ftn.tutorial.tutorial.receiving_request_messages.f0" href="#tutorial.tutorial.receiving_request_messages.f0" class="para">10</a>] </sup>
             Once again, according to the HTTP RFC 7230, section 3.2.2: <span class="quote">&#8220;<span class="quote">A server
             MUST NOT apply a request to the target resource until the entire request
             header section is received, since later header fields might include conditionals,

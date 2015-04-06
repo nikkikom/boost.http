@@ -105,7 +105,7 @@
                      <span class="special">&lt;&lt;</span> <span class="identifier">message</span><span class="special">.</span><span class="identifier">headers</span><span class="special">().</span><span class="identifier">find</span><span class="special">(</span><span class="string">"host"</span><span class="special">)-&gt;</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
 
                 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Write state = "</span> <span class="special">&lt;&lt;</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">socket</span><span class="special">.</span><span class="identifier">write_state</span><span class="special">())</span>
-                <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+                          <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
                 <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"About to send a reply"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
 
@@ -241,7 +241,7 @@
 <p>
           If you do have special memory requirements for the messages, you're free
           to implementing an alternative container, as long as it fulfills the documented
-          <code class="computeroutput"><span class="identifier">Message</span></code> concept. Conections
+          <code class="computeroutput"><span class="identifier">Message</span></code> concept. Connections
           channels and HTTP messages are <span class="bold"><strong>not</strong></span> coupled
           together. You can reuse these pieces in many many different contexts.
         </p>

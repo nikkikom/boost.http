@@ -39,7 +39,7 @@
             concept and also possessing the <span class="emphasis"><em>strict</em></span> property</span></dt>
 <dd><p>
                 Instances from this type will <span class="bold"><strong>not</strong></span>
-                insert illegal characters<sup>[<a name="reference.socket_concept.definitions.f0" href="#ftn.reference.socket_concept.definitions.f0" class="footnote">16</a>]</sup> in the HTTP fields.
+                insert illegal characters<sup>[<a name="reference.socket_concept.definitions.f0" href="#ftn.reference.socket_concept.definitions.f0" class="footnote">17</a>]</sup> in the HTTP fields.
               </p></dd>
 <dt><span class="term">Native stream</span></dt>
 <dd><p>
@@ -603,6 +603,13 @@
               object to receive a different message). This requirement is extended
               to refinements of this concept.
             </li>
+<li class="listitem">
+              The <code class="computeroutput"><span class="identifier">Socket</span></code> object MUST
+              <span class="bold"><strong>NOT</strong></span> insert HTTP headers with empty
+              keys (i.e. <code class="computeroutput"><span class="string">""</span></code>)
+              or empty values (i.e. <code class="computeroutput"><span class="string">""</span></code>)
+              in message objects provided by the user.
+            </li>
 </ol></div>
 </div>
 <div class="section">
@@ -634,7 +641,7 @@
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a name="ftn.reference.socket_concept.definitions.f0" href="#reference.socket_concept.definitions.f0" class="para">16</a>] </sup>
+<div class="footnote"><p><sup>[<a name="ftn.reference.socket_concept.definitions.f0" href="#reference.socket_concept.definitions.f0" class="para">17</a>] </sup>
                   Defined in the <a class="link" href="message_concept.html#reference.message_concept.definitions" title="Definitions"><code class="literal">Message</code>
                   concept's <span class="quote">&#8220;<span class="quote">definitions</span>&#8221;</span> section</a>.
                 </p></div>
