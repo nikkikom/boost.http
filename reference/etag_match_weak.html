@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>etag_match_weak</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Http">
+<link rel="up" href="../reference.html" title="Chapter&#160;4.&#160;Reference">
+<link rel="prev" href="etag_match_strong.html" title="etag_match_strong">
+<link rel="next" href="request_continue_required.html" title="request_continue_required">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="etag_match_strong.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="request_continue_required.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="reference.etag_match_weak"></a><a class="link" href="etag_match_weak.html" title="etag_match_weak">etag_match_weak</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="etag_match_weak.html#reference.etag_match_weak.template_parameters">Template
+        parameters</a></span></dt>
+<dt><span class="section"><a href="etag_match_weak.html#reference.etag_match_weak.parameters">Parameters</a></span></dt>
+<dt><span class="section"><a href="etag_match_weak.html#reference.etag_match_weak.return_value">Return value</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">header</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">StringRef</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">etag_match_weak</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">StringRef</span> <span class="special">&amp;</span><span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">StringRef</span> <span class="special">&amp;</span><span class="identifier">b</span><span class="special">)</span>
+</pre>
+<p>
+        Check if <span class="emphasis"><em>a</em></span> and <span class="emphasis"><em>b</em></span> match.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          This function doesn't pedantically check if both arguments are actual entity
+          tags and you should validate at least one of the arguments yourself.
+        </p>
+<p>
+          Builtin validation is only done enough to protect against attacks.
+        </p>
+</td></tr>
+</table></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.etag_match_weak.template_parameters"></a><a class="link" href="etag_match_weak.html#reference.etag_match_weak.template_parameters" title="Template parameters">Template
+        parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">StringRef</span></code></span></dt>
+<dd><p>
+                It MUST fulfill the requirements of the <code class="computeroutput"><span class="identifier">StringRef</span></code>
+                concept (i.e. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">basic_string_ref</span></code>).
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.etag_match_weak.parameters"></a><a class="link" href="etag_match_weak.html#reference.etag_match_weak.parameters" title="Parameters">Parameters</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">StringRef</span>
+            <span class="special">&amp;</span><span class="identifier">a</span></code></span></dt>
+<dd><p>
+                The entity tag to compare against <span class="emphasis"><em>b</em></span>.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="keyword">const</span> <span class="identifier">StringRef</span>
+            <span class="special">&amp;</span><span class="identifier">b</span></code></span></dt>
+<dd><p>
+                The entity tag to compare against <span class="emphasis"><em>a</em></span>.
+              </p></dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="reference.etag_match_weak.return_value"></a><a class="link" href="etag_match_weak.html#reference.etag_match_weak.return_value" title="Return value">Return value</a>
+</h3></div></div></div>
+<p>
+          <code class="computeroutput"><span class="keyword">true</span></code> if the entity tags match,
+          using the weak comparison<sup>[<a name="reference.etag_match_weak.return_value.f0" href="#ftn.reference.etag_match_weak.return_value.f0" class="footnote">13</a>]</sup> or <code class="computeroutput"><span class="keyword">false</span></code> otherwise.
+        </p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.reference.etag_match_weak.return_value.f0" href="#reference.etag_match_weak.return_value.f0" class="para">13</a>] </sup>
+            Defined in RFC 7232.
+          </p></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Vin&#237;cius dos Santos Oliveira<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="etag_match_strong.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="request_continue_required.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

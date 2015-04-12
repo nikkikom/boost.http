@@ -10,6 +10,8 @@ reference.html
 reference/headers.html
 reference/message.html
 reference/socket.html
+reference/basic_polymorphic_socket_base.html
+reference/basic_polymorphic_server_socket.html
 reference/polymorphic_socket_base.html
 reference/polymorphic_server_socket.html
 reference/basic_message.html
@@ -21,8 +23,8 @@ reference/header_value_all_of.html
 reference/header_value_any_of.html
 reference/header_value_none_of.html
 reference/header_value_for_each.html
-reference/header_value_etag_match_strong.html
-reference/header_value_etag_match_weak.html
+reference/etag_match_strong.html
+reference/etag_match_weak.html
 reference/request_continue_required.html
 reference/request_upgrade_desired.html
 reference/async_write_response.html

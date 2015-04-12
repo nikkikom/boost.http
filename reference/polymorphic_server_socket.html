@@ -17,197 +17,27 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="reference.polymorphic_server_socket"></a><a class="link" href="polymorphic_server_socket.html" title="polymorphic_server_socket">polymorphic_server_socket</a>
 </h2></div></div></div>
-<div class="toc"><dl>
-<dt><span class="section"><a href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_types">Member
-        types</a></span></dt>
-<dt><span class="section"><a href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_functions">Member
-        functions</a></span></dt>
-</dl></div>
+<div class="toc"><dl><dt><span class="section"><a href="polymorphic_server_socket.html#reference.polymorphic_server_socket.see_also">See also</a></span></dt></dl></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">http</span><span class="special">/</span><span class="identifier">polymorphic_server_socket</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-        This function inherits <code class="literal"><a class="link" href="polymorphic_socket_base.html" title="polymorphic_socket_base">polymorphic_socket_base</a></code>
-        and extends its interface with virtual functions useful for server sockets.
-        This class itself is also a abstract class with no state (i.e. an <span class="emphasis"><em>interface</em></span>).
+        <code class="literal">polymorphic_server_socket</code> is a simple typedef for <code class="literal"><a class="link" href="basic_polymorphic_server_socket.html" title="basic_polymorphic_server_socket">basic_polymorphic_server_socket</a></code>.
+        It's defined as follows:
       </p>
-<p>
-        References for objects of this class are expected to fulfill the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
-        concept</a>.
-      </p>
-<p>
-        This class is inherited by <code class="literal"><a class="link" href="server_socket_adaptor.html" title="server_socket_adaptor">server_socket_adaptor</a></code>.
-      </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_polymorphic_server_socket</span><span class="special">&lt;</span><span class="identifier">message</span><span class="special">&gt;</span> <span class="identifier">polymorphic_server_socket</span><span class="special">;</span>
+</pre>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="reference.polymorphic_server_socket.member_types"></a><a class="link" href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_types" title="Member types">Member
-        types</a>
+<a name="reference.polymorphic_server_socket.see_also"></a><a class="link" href="polymorphic_server_socket.html#reference.polymorphic_server_socket.see_also" title="See also">See also</a>
 </h3></div></div></div>
-<p>
-          These are the types chosen <span class="emphasis"><em>set in stone</em></span> to guarantee
-          ABI stability across binaries (including possible plugins).
-        </p>
-<div class="variablelist">
-<p class="title"><b></b></p>
-<dl>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span>
-            <span class="identifier">method_server_type</span></code></span></dt>
-<dd><p>
-                The <code class="literal">server_type</code> suffix is used to avoid name clashing
-                with a possible HTTP client abstraction.
-              </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span>
-            <span class="identifier">path_server_type</span></code></span></dt>
-<dd><p>
-                The <code class="literal">server_type</code> suffix is used to avoid name clashing
-                with a possible HTTP client abstraction.
-              </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">string_ref</span>
-            <span class="identifier">reason_phrase_server_type</span></code></span></dt>
-<dd><p>
-                The <code class="literal">server_type</code> suffix is used to avoid name clashing
-                with a possible HTTP client abstraction.
-              </p></dd>
-</dl>
-</div>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="reference.polymorphic_server_socket.member_functions"></a><a class="link" href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_functions" title="Member functions">Member
-        functions</a>
-</h3></div></div></div>
-<div class="toc"><dl>
-<dt><span class="section"><a href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_functions.overwritable_functions">Overwritable
-          functions</a></span></dt>
-<dt><span class="section"><a href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_functions.wrappers_to_fulfill_the_asio_ext">Wrappers
-          to fulfill the ASIO extensible model</a></span></dt>
-</dl></div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="reference.polymorphic_server_socket.member_functions.overwritable_functions"></a><a class="link" href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_functions.overwritable_functions" title="Overwritable functions">Overwritable
-          functions</a>
-</h4></div></div></div>
-<p>
-            These are the functions that subclasses need to implement in order to
-            lose the <code class="literal">abstract class</code> property.
-          </p>
-<div class="variablelist">
-<p class="title"><b></b></p>
-<dl>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">virtual</span> <span class="keyword">bool</span>
-              <span class="identifier">write_response_native_stream</span><span class="special">()</span> <span class="keyword">const</span> <span class="special">=</span> <span class="number">0</span></code></span></dt>
-<dd><p>
-                  This function presents no differences (besides mandatory virtual)
-                  from the one with the same name found on the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
-                  concept</a>.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">virtual</span> <span class="keyword">void</span>
-              <span class="identifier">async_read_request</span><span class="special">(</span><span class="identifier">method_server_type</span> <span class="special">&amp;</span><span class="identifier">method</span><span class="special">,</span>
-              <span class="identifier">path_server_type</span> <span class="special">&amp;</span><span class="identifier">path</span><span class="special">,</span> <span class="identifier">message_type</span> <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span>
-              <span class="identifier">callback_type</span> <span class="identifier">handler</span><span class="special">)</span> <span class="special">=</span> <span class="number">0</span></code></span></dt>
-<dd><p>
-                  The only difference between this function (besides mandatory virtual)
-                  and the one with the same name found on the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
-                  concept</a> is the lack of support for completion tokens and
-                  the use of a type erased handler instead.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">virtual</span> <span class="keyword">void</span>
-              <span class="identifier">async_write_response</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint_fast16_t</span> <span class="identifier">status_code</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">reason_phrase_server_type</span> <span class="special">&amp;</span><span class="identifier">reason_phrase</span><span class="special">,</span>
-              <span class="keyword">const</span> <span class="identifier">message_type</span>
-              <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">callback_type</span>
-              <span class="identifier">handler</span><span class="special">)</span>
-              <span class="special">=</span> <span class="number">0</span></code></span></dt>
-<dd><p>
-                  The only difference between this function (besides mandatory virtual)
-                  and the one with the same name found on the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
-                  concept</a> is the lack of support for completion tokens and
-                  the use of a type erased handler instead.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">virtual</span> <span class="keyword">void</span>
-              <span class="identifier">async_write_response_continue</span><span class="special">(</span><span class="identifier">callback_type</span>
-              <span class="identifier">handler</span><span class="special">)</span>
-              <span class="special">=</span> <span class="number">0</span></code></span></dt>
-<dd><p>
-                  The only difference between this function (besides mandatory virtual)
-                  and the one with the same name found on the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
-                  concept</a> is the lack of support for completion tokens and
-                  the use of a type erased handler instead.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">virtual</span> <span class="keyword">void</span>
-              <span class="identifier">async_write_response_metadata</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint_fast16_t</span>
-              <span class="identifier">status_code</span><span class="special">,</span>
-              <span class="keyword">const</span> <span class="identifier">reason_phrase_server_type</span>
-              <span class="special">&amp;</span><span class="identifier">reason_phrase</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">message_type</span> <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span>
-              <span class="identifier">callback_type</span> <span class="identifier">handler</span><span class="special">)</span> <span class="special">=</span> <span class="number">0</span></code></span></dt>
-<dd><p>
-                  The only difference between this function (besides mandatory virtual)
-                  and the one with the same name found on the <a class="link" href="server_socket_concept.html" title="ServerSocket"><code class="literal">ServerSocket</code>
-                  concept</a> is the lack of support for completion tokens and
-                  the use of a type erased handler instead.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">virtual</span> <span class="special">~</span><span class="identifier">polymorphic_server_socket</span><span class="special">()</span></code></span></dt>
-<dd><p>
-                  Destructor.
-                </p></dd>
-</dl>
-</div>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="reference.polymorphic_server_socket.member_functions.wrappers_to_fulfill_the_asio_ext"></a><a class="link" href="polymorphic_server_socket.html#reference.polymorphic_server_socket.member_functions.wrappers_to_fulfill_the_asio_ext" title="Wrappers to fulfill the ASIO extensible model">Wrappers
-          to fulfill the ASIO extensible model</a>
-</h4></div></div></div>
-<p>
-            These functions rewrite usual function calls in terms of the ABI stable
-            interface. They also enable the ASIO extensible model within this hierarchy.
-          </p>
-<div class="variablelist">
-<p class="title"><b></b></p>
-<dl>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span> <span class="keyword">typename</span>
-              <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-              <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
-              <span class="identifier">async_read_request</span><span class="special">(</span><span class="identifier">method_server_type</span> <span class="special">&amp;</span><span class="identifier">method</span><span class="special">,</span>
-              <span class="identifier">path_server_type</span> <span class="special">&amp;</span><span class="identifier">path</span><span class="special">,</span> <span class="identifier">message_type</span> <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span>
-              <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">)</span></code></span></dt>
-<dd><p>
-                  Handle the token and dispatch the operation to the ABI stable
-                  <code class="computeroutput"><span class="identifier">async_read_request</span></code>.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span> <span class="keyword">typename</span>
-              <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-              <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
-              <span class="identifier">async_write_response</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint_fast16_t</span> <span class="identifier">status_code</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">reason_phrase_server_type</span> <span class="special">&amp;</span><span class="identifier">reason_phrase</span><span class="special">,</span>
-              <span class="keyword">const</span> <span class="identifier">message_type</span>
-              <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span> <span class="identifier">CompletionToken</span>
-              <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">)</span></code></span></dt>
-<dd><p>
-                  Handle the token and dispatch the operation to the ABI stable
-                  <code class="computeroutput"><span class="identifier">async_write_response</span></code>.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span> <span class="keyword">typename</span>
-              <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-              <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
-              <span class="identifier">async_write_response_continue</span><span class="special">(</span><span class="identifier">CompletionToken</span>
-              <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">)</span></code></span></dt>
-<dd><p>
-                  Handle the token and dispatch the operation to the ABI stable
-                  <code class="computeroutput"><span class="identifier">async_write_response_continue</span></code>.
-                </p></dd>
-<dt><span class="term"><code class="computeroutput"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span> <span class="keyword">typename</span>
-              <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-              <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">handler_type</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span>
-              <span class="identifier">async_write_response_metadata</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint_fast16_t</span>
-              <span class="identifier">status_code</span><span class="special">,</span>
-              <span class="keyword">const</span> <span class="identifier">reason_phrase_server_type</span>
-              <span class="special">&amp;</span><span class="identifier">reason_phrase</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">message_type</span> <span class="special">&amp;</span><span class="identifier">message</span><span class="special">,</span>
-              <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span><span class="identifier">token</span><span class="special">)</span></code></span></dt>
-<dd><p>
-                  Handle the token and dispatch the operation to the ABI stable
-                  <code class="computeroutput"><span class="identifier">async_write_response_metadata</span></code>.
-                </p></dd>
-</dl>
-</div>
-</div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="literal"><a class="link" href="basic_polymorphic_server_socket.html" title="basic_polymorphic_server_socket">basic_polymorphic_server_socket</a></code>
+            </li>
+<li class="listitem">
+              <code class="literal"><a class="link" href="message.html" title="message">message</a></code>
+            </li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
